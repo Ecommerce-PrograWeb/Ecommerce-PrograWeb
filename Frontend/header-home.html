@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
   <!-- Link to external CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="header-home-style.css" />
 </head>
 <body>
 
@@ -24,9 +24,18 @@
     
     <!-- Logo section -->
     <div class="logo">
-      <span class="symbols">car_tag</span>
+      <span class="symbols">star</span>
       LOGO
     </div>
+
+    <!-- Desktop nav links (hidden on mobile) -->
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#discover">Discover</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
 
     <!-- Icon buttons section -->
     <div class="nav-icons">
@@ -41,7 +50,11 @@
       </button>
 
       <!-- Menu icon (display only, no functionality) -->
-      <span class="symbols">menu</span>
+      <!--<span class="symbols">menu</span> -->
+      <!-- Mobile-only hamburger icon -->
+      <button class="icon-menu" aria-label="Menu">
+        <span class="symbols">menu</span>
+      </button>
     </div>
   </nav>
 </header>
