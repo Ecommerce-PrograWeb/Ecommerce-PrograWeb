@@ -54,93 +54,11 @@ body {
   gap: 1rem;
 }
 
-/* Buttons for user, cart and hamburger */
+/* Buttons for user and cart */
 .nav-icons button {
   background: none;
   border: none;
   color: #2d5a2d;
   font-size: 1.3rem;
   cursor: pointer;
-}
-
-/* Mobile menu container (initially hidden) */
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  left: -100%;
-  width: 80%;
-  height: 100%;
-  background-color: #e8f5e8;
-  padding: 1rem;
-  color: #2d5a2d;
-  z-index: 2000; /* must be above overlay */
-}
-
-/* Active state for mobile menu (visible) */
-.mobile-menu.active {
-  left: 0;
-}
-
-/* Header inside mobile menu */
-.mobile-menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-/* Close button (X) inside mobile menu */
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: #2d5a2d;
-  cursor: pointer;
-}
-
-
-/* Unordered list container for menu links */
-.menu-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-/* Each menu list item */
-.menu-item {
-  margin-bottom: 1rem;
-}
-
-/* Anchor links in menu */
-.menu-link {
-  color: #2d5a2d;
-  text-decoration: none;
-  font-size: 1rem;
-  padding: 0.5rem 0;
-  display: block;
-}
-
-/* Overlay background when menu is open */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1500; /* must be below mobile-menu */
-}
-
-/* Active overlay state */
-.overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Optional content wrapper */
-.main-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
 }
