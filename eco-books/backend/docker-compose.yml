@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: MySQL
+      MYSQL_DATABASE: E-Co Books
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: E-Co Books
+      DB_USER: root
+      DB_PASS: MySQL
+      APP_PORT: 3000
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+volumes:
+  db_data:
