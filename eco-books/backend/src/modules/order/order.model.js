@@ -8,7 +8,7 @@ const Order = sequelize.define('Order', {
     primaryKey: true
   },
   date: {
-    type: DataTypes.DATEONLY,
+    type: DataTypes.DATEONLY,  
     allowNull: false
   },
   status: {
@@ -32,7 +32,7 @@ const Order = sequelize.define('Order', {
     allowNull: false
   }
 }, {
-  tableName: 'Order',
+  tableName: 'Order',   
   timestamps: false
 });
 
