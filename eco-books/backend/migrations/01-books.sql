@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS eco_books;
+USE eco_books;
+
 -- Author
 create table IF NOT EXISTS Author(
     author_id int auto_increment primary key,

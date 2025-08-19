@@ -1,9 +1,9 @@
 import { Router } from "express";
+import * as orderController from "./order.controller.js";
+
 const router = Router();
 
-// Ruta de prueba
-router.get("/", (req, res) => {
-  res.json({ message: "Orders route working!" });
-});
+router.get("/", orderController.getOrders);
+router.post("/", orderController.createOrder);
 
 export default router;

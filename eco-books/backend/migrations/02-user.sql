@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS eco_books;
+USE eco_books;
+
 -- Role
 create table IF NOT EXISTS Role(
     role_id int auto_increment primary key,
