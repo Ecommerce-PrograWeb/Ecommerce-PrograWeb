@@ -1,10 +1,8 @@
-import { Router } from 'express';
-import * as cartController from './cart.controller.js';
-
+import { Router } from "express";
 const router = Router();
 
-router.get('/', cartController.getCarts);
-router.post('/', cartController.createCart);
-router.get('/:id', cartController.default.getById);
+// Ruta de prueba
+router.get("/", (req, res) => {
+  res.json({ message: "Cart route working!" });});
 
 export default router;
