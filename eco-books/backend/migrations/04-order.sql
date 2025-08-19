@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS eco_books;
+USE eco_books;
+
 -- Address
 create table IF NOT EXISTS Address(
     address_id int auto_increment primary key,
@@ -15,7 +18,7 @@ create table IF NOT EXISTS OrderDetail(
 );
 
 -- Order
-create table IF NOT EXISTS Order(
+create table IF NOT EXISTS `Order`(
     order_id int auto_increment primary key,
     date date not null,
     status varchar(100) not null 

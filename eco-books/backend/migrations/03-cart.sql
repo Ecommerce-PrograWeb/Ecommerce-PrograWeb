@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS eco_books;
+USE eco_books;
+
 -- Cart
 create table IF NOT EXISTS Cart(
     cart_id int auto_increment primary key,
