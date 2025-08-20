@@ -1,10 +1,9 @@
-// src/modules/users/user.service.js
-import bcrypt from "bcrypt";                       // si prefieres evitar binarios: import bcrypt from "bcryptjs";
+// src/modules/users/user.service.js  
 import { sequelize } from "../../config/database.js";
 
 const USER_FIELDS_PUBLIC = "u.user_id, u.name, u.email, r.type AS role";
 
-/** Helper: obtener role_id por su type (nombre) */
+/** Helper: obtener role_id por nombre */
 async function findRoleIdByType(type) {
   if (!type) return null;
   const [rows] = await sequelize.query(
@@ -36,45 +35,43 @@ export async function getUserById(id) {
   return rows[0] || null;
 }
 
-/** CREATE */
+/** CREATE  */
 export async function createUser(data) {
   const { name, email, password, role_id, role } = data || {};
   if (!name || !email || !password) {
     throw new Error("name, email y password son obligatorios");
   }
 
-  // Email único
+  // email único
   const [exists] = await sequelize.query(
     "SELECT 1 FROM `User` WHERE email = :email",
     { replacements: { email } }
   );
   if (exists.length) throw new Error("El email ya está registrado");
 
-  // Resolver role_id si viene 'role' (por nombre)
+  // resolver role_id por nombre si viene 'role'
   let roleId = role_id ?? null;
   if (!roleId && role) {
     roleId = await findRoleIdByType(role);
     if (!roleId) throw new Error(`Role '${role}' no existe. Inserta antes en tabla Role.`);
   }
 
-  const hashed = await bcrypt.hash(password, 10);
-
+  //  guardar 
   const [result] = await sequelize.query(
     "INSERT INTO `User` (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)",
-    { replacements: { name, email, password: hashed, role_id: roleId } }
+    { replacements: { name, email, password, role_id: roleId } }
   );
 
-  const insertId = result.insertId ?? result; // mysql2 devuelve insertId en 'result'
+  const insertId = result.insertId ?? result;
   return await getUserById(insertId);
 }
 
-/** UPDATE */
+/** UPDATE  */
 export async function updateUser(id, data) {
   const allowed = ["name", "email", "password", "role_id", "role"];
   const updates = {};
   for (const k of allowed) if (data[k] !== undefined) updates[k] = data[k];
 
-  // Resolver role por nombre
   if (updates.role && !updates.role_id) {
     const rId = await findRoleIdByType(updates.role);
     if (!rId) throw new Error(`Role '${updates.role}' no existe. Inserta antes en tabla Role.`);
@@ -82,7 +79,6 @@ export async function updateUser(id, data) {
     delete updates.role;
   }
 
-  // Email único si cambia
   if (updates.email) {
     const [exists] = await sequelize.query(
       "SELECT 1 FROM `User` WHERE email = :email AND user_id <> :id",
@@ -91,12 +87,7 @@ export async function updateUser(id, data) {
     if (exists.length) throw new Error("El email ya está en uso por otro usuario");
   }
 
-  // Hash si cambia password
-  if (updates.password) {
-    updates.password = await bcrypt.hash(updates.password, 10);
-  }
-
-  // Construir SET dinámico
+  // construir SET dinámico
   const fields = [];
   const replacements = { id };
   for (const [k, v] of Object.entries(updates)) {
@@ -136,11 +127,12 @@ export async function login(email, password) {
       WHERE u.email = :email`,
     { replacements: { email } }
   );
+
   const user = rows[0];
   if (!user) return null;
 
-  const ok = await bcrypt.compare(password, user.password);
-  if (!ok) return null;
+ 
+  if (user.password !== password) return null;
 
   const { password: _ignored, ...safe } = user;
   return safe;

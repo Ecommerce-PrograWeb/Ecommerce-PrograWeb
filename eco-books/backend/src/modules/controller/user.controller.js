@@ -62,7 +62,7 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-/** POST /users/auth/login  (o /auth/login si lo montas fuera) */
+/** POST /users/auth/login   */
 export const login = async (req, res, next) => {
   try {
     const { email, password } = req.body || {};
@@ -77,7 +77,7 @@ export const login = async (req, res, next) => {
   }
 };
 
-// export default, por si prefieres importarlo como default
+// export default
 export default {
   getUsers,
   getUserById,
