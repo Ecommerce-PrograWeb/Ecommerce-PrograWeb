@@ -31,3 +31,60 @@ create table IF NOT EXISTS `Order`(
     foreign key (address_id) references Address(address_id),
     foreign key (cart_id) references Cart(cart_id)
 );
+
+
+-- Rollback (drop all three tables)
+USE eco_books;
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `Order`;
+DROP TABLE IF EXISTS `OrderDetail`;
+DROP TABLE IF EXISTS `Address`;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Drop just Order table
+USE eco_books;
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `Order`;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Drop just OrderDetail table
+USE eco_books;
+
+-- Remove FK from `Order` -> `OrderDetail` first (auto-detect name)
+SELECT CONSTRAINT_NAME INTO @fk_order_detail
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = 'eco_books'
+  AND TABLE_NAME = 'Order'
+  AND COLUMN_NAME = 'order_detail_id'
+  AND REFERENCED_TABLE_NAME = 'OrderDetail'
+LIMIT 1;
+
+SET @sql := IF(@fk_order_detail IS NOT NULL,
+  CONCAT('ALTER TABLE `Order` DROP FOREIGN KEY `', @fk_order_detail, '`'),
+  'SELECT 1');
+
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+DROP TABLE IF EXISTS `OrderDetail`;
+
+-- Drop just Address table
+USE eco_books;
+
+-- Remove FK from `Order` -> `Address` first (auto-detect name)
+SELECT CONSTRAINT_NAME INTO @fk_address
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_SCHEMA = 'eco_books'
+  AND TABLE_NAME = 'Order'
+  AND COLUMN_NAME = 'address_id'
+  AND REFERENCED_TABLE_NAME = 'Address'
+LIMIT 1;
+
+SET @sql := IF(@fk_address IS NOT NULL,
+  CONCAT('ALTER TABLE `Order` DROP FOREIGN KEY `', @fk_address, '`'),
+  'SELECT 1');
+
+PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+
+DROP TABLE IF EXISTS `Address`;
