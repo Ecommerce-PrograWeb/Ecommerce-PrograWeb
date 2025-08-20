@@ -1,16 +1,27 @@
---Needed for user
-INSERT INTO Role (type) VALUES ('Customer'), ('Admin');
+USE eco_books;
 
---Needed for book
-INSERT INTO `Author` (name) VALUES ('Author 1'), ('Author 2');
+-- Roles
+INSERT INTO Role (type) VALUES ('Customer');
+INSERT INTO Role (type) VALUES ('Admin');
 
-INSERT INTO `Publisher` (name) VALUES ('Publisher 1'), ('Publisher 2');
+-- Authors
+INSERT INTO Author (name) VALUES ('Miguel de Cervantes');
+INSERT INTO Author (name) VALUES ('Gabriel Garcia Marquez');
 
-INSERT INTO `Category` (name) VALUES ('Category 1'), ('Category 2');
+-- Publishers
+INSERT INTO Publisher (name) VALUES ('Editorial Ejemplo');
+INSERT INTO Publisher (name) VALUES ('Penguin Random House');
 
---Needed for order
-INSERT INTO `OrderDetail` (sale_price, book_id) VALUES (19.99, 1), (29.99, 2);
-INSERT INTO `Address` (city, zone, name) VALUES ('City A', 'Zone A', 'Home'), ('City B', 'Zone B', 'Work');
---also a cart_id
+-- Categories
+INSERT INTO Category (name) VALUES ('Novela');
+INSERT INTO Category (name) VALUES ('Ficcion');
 
---A user is needed for cart post
+-- Address
+INSERT INTO Address (city, zone, name) VALUES ('Madrid', 'Centro', 'Casa Juan');
+INSERT INTO Address (city, zone, name) VALUES ('Bogota', 'Norte', 'Casa Admin');
+
+-- OrderDetails
+/*
+INSERT INTO OrderDetail (sale_price, book_id) VALUES (99.99, 1);
+INSERT INTO OrderDetail (sale_price, book_id) VALUES (79.99, 2);
+*/
