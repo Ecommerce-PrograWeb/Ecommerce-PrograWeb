@@ -17,6 +17,7 @@ create table IF NOT EXISTS User(
     foreign key (role_id) references Role(role_id)
 );
 
+/*
 
 -- Rollback (drop both tables)
 USE eco_books;
@@ -53,3 +54,5 @@ SET @sql := IF(@fk_role IS NOT NULL,
 PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 DROP TABLE IF EXISTS `Role`;
+
+*/

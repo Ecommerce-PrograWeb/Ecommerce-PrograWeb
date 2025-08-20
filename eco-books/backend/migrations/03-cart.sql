@@ -17,6 +17,8 @@ create table IF NOT EXISTS Inventory(
     foreign key (book_id) references Book(book_id)
 );
 
+/*
+
 -- Rollback (drop both tables)
 USE eco_books;
 
@@ -38,3 +40,5 @@ USE eco_books;
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `Inventory`;
 SET FOREIGN_KEY_CHECKS = 1;
+
+*/

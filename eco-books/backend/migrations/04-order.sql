@@ -32,6 +32,7 @@ create table IF NOT EXISTS `Order`(
     foreign key (cart_id) references Cart(cart_id)
 );
 
+/*
 
 -- Rollback (drop all three tables)
 USE eco_books;
@@ -88,3 +89,5 @@ SET @sql := IF(@fk_address IS NOT NULL,
 PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 DROP TABLE IF EXISTS `Address`;
+
+*/

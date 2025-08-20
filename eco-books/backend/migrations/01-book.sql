@@ -34,6 +34,7 @@ create table IF NOT EXISTS Book(
     foreign key (category_id) references Category(category_id)
 );
 
+/*
 
 -- Rollback (drop all four tables)
 USE eco_books;
@@ -111,3 +112,5 @@ SET @sql := IF(@fk_book_category IS NOT NULL,
 PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
 
 DROP TABLE IF EXISTS `Category`;
+
+*/
