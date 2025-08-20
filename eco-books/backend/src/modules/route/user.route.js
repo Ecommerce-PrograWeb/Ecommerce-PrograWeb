@@ -1,6 +1,6 @@
 ﻿// src/modules/users/user.route.js
 import { Router } from "express";
-import * as controller from "./user.controller.js";
+import * as controller from "../controller/user.controller.js";
 
 const router = Router();
 

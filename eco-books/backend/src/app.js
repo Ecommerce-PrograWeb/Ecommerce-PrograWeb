@@ -1,6 +1,6 @@
 ﻿import express from "express";
 import morgan from "morgan";
-import router from "./routes/index.js";
+import router from "./index.js";
 import { errorHandler } from "./core/errors/error-handler.js";
 
 const app = express();

@@ -1,4 +1,4 @@
-import Cart from './cart.model.js';
+import Cart from '../model/cart.model.js';
 
 const CartService = {
     getCarts: () => Cart.findAll(),

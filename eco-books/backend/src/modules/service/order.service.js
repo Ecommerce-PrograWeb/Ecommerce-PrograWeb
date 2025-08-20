@@ -1,4 +1,4 @@
-import Order from './order.model.js';
+import Order from '../model/order.model.js';
 
 const OrderService = {
   // List with filters/sort and optionally pagination

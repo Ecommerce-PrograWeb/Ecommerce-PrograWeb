@@ -1,4 +1,3 @@
-CREATE DATABASE IF NOT EXISTS eco_books;
 USE eco_books;
 
 -- Role

@@ -1,4 +1,4 @@
-import OrderService from './order.service.js';
+import OrderService from '../service/order.service.js';
 
 // GET /orders
 export async function getOrders(req, res) {
