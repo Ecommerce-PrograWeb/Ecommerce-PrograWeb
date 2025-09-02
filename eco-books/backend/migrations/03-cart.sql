@@ -5,7 +5,12 @@ create table IF NOT EXISTS Cart(
     cart_id int auto_increment primary key,
     total decimal(10,2) not null,
     user_id int,
-    foreign key (user_id) references User(user_id)
+    foreign key (user_id) references User(user_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Inventory
@@ -14,7 +19,12 @@ create table IF NOT EXISTS Inventory(
     quantity int not null,
     location varchar(100) not null,
     book_id int,
-    foreign key (book_id) references Book(book_id)
+    foreign key (book_id) references Book(book_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 /*
