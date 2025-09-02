@@ -8,7 +8,12 @@ create table IF NOT EXISTS Payment(
     amount decimal(10,2) not null,
     payment_method varchar(100) not null
         check(payment_method in ('Cash', 'Card')),
-    foreign key (order_id) references `Order`(order_id)
+    foreign key (order_id) references `Order`(order_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 /*

@@ -4,19 +4,34 @@ USE eco_books;
 -- Author
 create table IF NOT EXISTS Author(
     author_id int auto_increment primary key,
-    name varchar(100) not null
+    name varchar(100) not null,
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Publisher
 create table IF NOT EXISTS Publisher(
     publisher_id int auto_increment primary key,
-    name varchar(100) not null
+    name varchar(100) not null,
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Category
 create table IF NOT EXISTS Category(
     category_id int auto_increment primary key,
-    name varchar(100) not null
+    name varchar(100) not null,
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Book
@@ -31,7 +46,12 @@ create table IF NOT EXISTS Book(
     category_id int,
     foreign key (author_id) references Author(author_id),
     foreign key (publisher_id) references Publisher(publisher_id),
-    foreign key (category_id) references Category(category_id)
+    foreign key (category_id) references Category(category_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 /*
