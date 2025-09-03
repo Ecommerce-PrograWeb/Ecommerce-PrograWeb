@@ -8,8 +8,7 @@ create table IF NOT EXISTS Role(
     created_date datetime not null default current_timestamp,
     updated_date datetime null on update current_timestamp,
     deleted_date datetime  null,
-    created_by int,
-    Foreign key (created_by) references User(user_id)
+    created_by int
 );
 
 -- User
