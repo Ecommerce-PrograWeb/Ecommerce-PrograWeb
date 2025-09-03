@@ -37,11 +37,16 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "3001:3000" # Next.js por defecto usa el 3000, aquí lo expones en el 3001 de tu máquina
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
     depends_on:
       - backend
     volumes:
       - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm start
 
 volumes:
   db_data:

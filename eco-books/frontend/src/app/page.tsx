@@ -1,29 +1,47 @@
-import Head from 'next/head';
+/*HOMEPAGE*/
 import styles from './Home.module.css';
 import ContactForm from './components/ContactForm'
 
 export default function Home() {
   return (
     <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-        <title>Home</title>
-      </Head>
+      <nav className={styles['nav-container']}>
+        {/* Logo section */}
+        <div className={styles.logo}>
+          <span className={styles.symbols}>star</span>
+          LOGO
+        </div>
 
-      <nav>
-        <ul className={styles.navList}>
-          {/* ...nav items... */}
+        {/* Desktop nav links */}
+        <ul className={styles['nav-links']}>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#discover">Discover</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
+
+        {/* Icon buttons section */}
+        <div className={styles['nav-icons']}>
+          {/* User icon button */}
+          <button className={styles['icon-user']} aria-label="User">
+            <span className={styles.symbols}>person</span>
+          </button>
+
+          {/* Shopping cart icon button */}
+          <button className={styles['icon-cart']} aria-label="Cart">
+            <span className={styles.symbols}>shopping_cart</span>
+          </button>
+
+          {/* Mobile-only hamburger icon */}
+          <button className={styles['icon-menu']} aria-label="Menu">
+            <span className={styles.symbols}>menu</span>
+          </button>
+        </div>
       </nav>
 
-      <header>
-        <h1 className={styles.headerTitle}>
-          {/* ...header content... */}
-        </h1>
+      <header className={styles.header}>
+        <h1 className={styles.headerTitle}>e-Co Books</h1>
       </header>
 
       <main className={styles.mainContent}>

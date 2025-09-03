@@ -1,3 +1,10 @@
+import './globals.css';
+
+export const metadata = {
+  title: 'Eco Books',
+  description: 'E-commerce for books',
+};
+
 export default function RootLayout({
   children,
 }: {
