@@ -1,103 +1,164 @@
-import Image from "next/image";
+import Head from 'next/head';
+import styles from './Home.module.css';
+import ContactForm from './components/ContactForm'
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        <title>Home</title>
+      </Head>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      <nav>
+        <ul className={styles.navList}>
+          {/* ...nav items... */}
+        </ul>
+      </nav>
+
+      <header>
+        <h1 className={styles.headerTitle}>
+          {/* ...header content... */}
+        </h1>
+      </header>
+
+      <main className={styles.mainContent}>
+        <section className={styles.heroSection}>
+          <div className={styles.heroOverlay}></div>
+          <div className={styles.heroContent}>
+            <h2 className={styles.heroTitle}>Bienvenido a e-Co Books</h2>
+            <p className={styles.heroText}>Tu librería online favorita para descubrir los mejores libros</p>
+            <button className={styles['cta-button']}>
+              Explorar Productos
+            </button>
+          </div>
+        </section>
+        <section id="products">
+          <h3>Explora nuestra selección de libros</h3>
+          <h2>Productos Destacados</h2>
+          <div className={styles['product-grid']}>
+            {/* Product Card 1 */}
+            <article className={styles['product-card']}>
+              <div className={styles['product-image']}>
+                <img src="/Images/Book Covers/Onyx Storm.jpg" alt="Portada de Libro 1" />
+                <span className={styles['product-badge']}>Nuevo</span>
+              </div>
+              <div className={styles['product-info']}>
+                <h3 className={styles['product-title']}>Onyx Storm</h3>
+                <p className={styles['product-author']}>Por: Rebecca Yarros</p>
+                <p className={styles['product-description']}>Una épica de acción y romance en un mundo de dragones y guerra.</p>
+                <div className={styles['product-price']}>
+                  <span className={styles.price}>Q199,99</span>
+                </div>
+                <button className={styles['add-to-cart-btn']}>Pedir Ahora</button>
+              </div>
+            </article>
+            {/* Product Card 2 */}
+            <article className={styles['product-card']}>
+              <div className={styles['product-image']}>
+                <img src="/Images/Book Covers/The Let Them Theory.jpg" alt="Portada del Libro 2" />
+                <span className={`${styles['product-badge']} ${styles.bestseller}`}>Bestseller</span>
+              </div>
+              <div className={styles['product-info']}>
+                <h3 className={styles['product-title']}>The Let Them Theory</h3>
+                <p className={styles['product-author']}>Por: Mel Robbins</p>
+                <p className={styles['product-description']}>Una guía motivacional para superar bloqueos mentales y encontrar empoderamiento.</p>
+                <div className={styles['product-price']}>
+                  <span className={styles.price}>Q234,99</span>
+                </div>
+                <button className={styles['add-to-cart-btn']}>Pedir Ahora</button>
+              </div>
+            </article>
+            {/* Product Card 3 */}
+            <article className={styles['product-card']}>
+              <div className={styles['product-image']}>
+                <img src="/Images/Book Covers/Sunrise on the Reaping.jpg" alt="Portada del Libro 3" />
+                <span className={`${styles['product-badge']} ${styles.sale}`}>Oferta</span>
+              </div>
+              <div className={styles['product-info']}>
+                <h3 className={styles['product-title']}>Sunrise on the Reaping</h3>
+                <p className={styles['product-author']}>Por: Suzanne Collins</p>
+                <p className={styles['product-description']}>Una precuela de Los Juegos del Hambre.</p>
+                <div className={styles['product-price']}>
+                  <span className={styles.price}>Q199,99</span>
+                </div>
+                <button className={styles['add-to-cart-btn']}>Pedir Ahora</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section id="Categories">
+          <h3>Nuestras Historias</h3>
+          <h2>Elige tu Categoria Favorita</h2>
+          <div className={styles['categories-section']}>
+            <div className={styles['category-item']}>
+              <button className={styles['category-btn']}><span className={styles['category-icon']}>⚔️</span></button>
+              <span className={styles['category-label']}>Acción</span>
+            </div>
+            <div className={styles['category-item']}>
+              <button className={styles['category-btn']}><span className={styles['category-icon']}>🏞️</span></button>
+              <span className={styles['category-label']}>Aventura</span>
+            </div>
+            <div className={styles['category-item']}>
+              <button className={styles['category-btn']}><span className={styles['category-icon']}>💖</span></button>
+              <span className={styles['category-label']}>Romance</span>
+            </div>
+            <div className={styles['category-item']}>
+              <button className={styles['category-btn']}><span className={styles['category-icon']}>🧙‍♂️</span></button>
+              <span className={styles['category-label']}>Fantasía</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact-membership" className={styles['contact-section']}>
+          <h2>Ponte en contacto</h2>
+          <p>¡Únete a nosotros y recibe novedades exclusivas!</p>
+          <ContactForm />
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className={styles.footerContainer}>
+        <div className={styles['footer-container']}>
+          <div className={styles['footer-section']}>
+            <h2>e-Co Books</h2>
+            <p><strong>Contact us</strong></p>
+            <p>ecobooks@gmail.com</p>
+            <p>+1-2345-6789</p>
+            <p>456 Library Ave, New York, USA</p>
+            <div className={styles['social-icons']}>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn" /></a>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter" /></a>
+              <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" /></a>
+            </div>
+          </div>
+          <div className={styles['footer-section']}>
+            <p><strong>Products</strong></p>
+            <p>Libros digitales</p>
+            <p>Revistas académicas</p>
+            <p>Audios narrados</p>
+            <p>Libros interactivos</p>
+            <p>Biblioteca en línea</p>
+          </div>
+          <div className={styles['footer-section']}>
+            <p><strong>About</strong></p>
+            <p>Quiénes somos</p>
+            <p>Política de privacidad</p>
+            <p>Condiciones de uso</p>
+            <p>Preguntas frecuentes</p>
+            <p>Contáctanos</p>
+          </div>
+        </div>
+        <div className={styles['footer-bottom']}>
+          <div className={styles['language-select']}>🌐 English ▼</div>
+          <p>Copyright © 2025. All rights reserved.</p>
+        </div>
       </footer>
-    </div>
+    </>
   );
 }
