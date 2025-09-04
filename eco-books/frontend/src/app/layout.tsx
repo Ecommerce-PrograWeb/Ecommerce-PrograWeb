@@ -1,9 +1,16 @@
-import './globals.css';
+import './globals.css'
+import { PT_Sans_Caption } from 'next/font/google'
+import type { Metadata } from 'next'
 
-export const metadata = {
-  title: 'Eco Books',
-  description: 'E-commerce for books',
-};
+const ptSans = PT_Sans_Caption({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+})
+
+export const metadata: Metadata = {
+  title: 'Home',
+  description: 'Tu librería online favorita para descubrir los mejores libros',
+}
 
 export default function RootLayout({
   children,
@@ -13,13 +20,13 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+        {/* Google Icons */}
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+          rel="stylesheet"
+        />
       </head>
-      <body>{children}</body>
+      <body className={ptSans.className}>{children}</body>
     </html>
   )
 }
