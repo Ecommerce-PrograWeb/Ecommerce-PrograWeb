@@ -1,22 +1,15 @@
+// app/layout.js
 import './globals.css'
 import { PT_Sans_Caption } from 'next/font/google'
-import type { Metadata } from 'next'
 
-const ptSans = PT_Sans_Caption({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-})
+const ptSans = PT_Sans_Caption({ subsets: ['latin'], weight: ['400', '700'] })
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Home',
-  description: 'Tu librería online favorita para descubrir los mejores libros',
+  description: 'Tu librería online favorita',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <head>
