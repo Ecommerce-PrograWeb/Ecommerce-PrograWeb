@@ -1,5 +1,5 @@
 export default function Footer() {
-  return (
+    return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
