@@ -4,7 +4,11 @@ USE eco_books;
 create table IF NOT EXISTS Role(
     role_id int auto_increment primary key,
     type varchar(100) not null
-        check(type in ('Customer', 'Admin'))
+        check(type in ('Customer', 'Admin')),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int
 );
 
 -- User
@@ -14,7 +18,12 @@ create table IF NOT EXISTS User(
     email varchar(100) not null,
     password varchar(100) not null,
     role_id int,
-    foreign key (role_id) references Role(role_id)
+    foreign key (role_id) references Role(role_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 /*

@@ -5,7 +5,12 @@ create table IF NOT EXISTS Address(
     address_id int auto_increment primary key,
     city varchar(100) not null,
     zone varchar(100) not null,
-    name varchar(100)
+    name varchar(100),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- OrderDetail
@@ -13,7 +18,12 @@ create table IF NOT EXISTS OrderDetail(
     order_detail_id int auto_increment primary key,
     sale_price decimal(10,2) not null,
     book_id int,
-    foreign key (book_id) references Book(book_id)
+    foreign key (book_id) references Book(book_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Order
@@ -29,7 +39,12 @@ create table IF NOT EXISTS `Order`(
     foreign key (user_id) references User(user_id),
     foreign key (order_detail_id) references OrderDetail(order_detail_id),
     foreign key (address_id) references Address(address_id),
-    foreign key (cart_id) references Cart(cart_id)
+    foreign key (cart_id) references Cart(cart_id),
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 /*
