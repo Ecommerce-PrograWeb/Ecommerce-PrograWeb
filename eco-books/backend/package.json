@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "eco-books-backend",
   "version": "1.0.0",
   "private": true,
@@ -8,7 +8,9 @@
     "start": "node src/server.js",
     "migrate": "sequelize-cli db:migrate",
     "seed": "sequelize-cli db:seed:all",
-    "migrate:undo": "sequelize-cli db:migrate:undo:all"
+    "migrate:undo": "sequelize-cli db:migrate:undo:all",
+    "test": "vitest",
+    "test:cov": "cross-env NODE_ENV=test vitest run --coverage --config ./vitest.config.js"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -18,7 +20,11 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "cross-env": "^10.0.0",
     "nodemon": "^3.1.0",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.1.4",
+    "vitest": "^3.2.4"
   }
 }

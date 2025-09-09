@@ -4,7 +4,7 @@ import { sequelize } from "../../config/database.js";
 const USER_FIELDS_PUBLIC = "u.user_id, u.name, u.email, r.type AS role";
 
 /** Helper: obtener role_id por nombre */
-async function findRoleIdByType(type) {
+export async function findRoleIdByType(type) {
   if (!type) return null;
   const [rows] = await sequelize.query(
     "SELECT role_id FROM Role WHERE type = :type",
@@ -36,8 +36,8 @@ export async function getUserById(id) {
 }
 
 /** CREATE  */
-export async function createUser(data) {
-  const { name, email, password, role_id, role } = data || {};
+export async function createUser(data = {}) {
+  const { name, email, password, role_id, role } = data;
   if (!name || !email || !password) {
     throw new Error("name, email y password son obligatorios");
   }
