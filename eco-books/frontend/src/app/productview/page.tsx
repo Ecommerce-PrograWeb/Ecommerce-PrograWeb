@@ -8,7 +8,7 @@ export default function ProductViewPage() {
         title: 'Onyx Storm',
         author: 'Rebecca Yarros',
         priceQ: 199.99,
-        cover: '/Images/Book Covers/Onyx Storm.jpg', // si diera 404 usa: '/Images/Book%20Covers/Onyx%20Storm.jpg'
+        cover: '/Images/Book Covers/Onyx Storm.jpg',
         category: 'Fantasía',
         rating: 4.8,
         reviews: 1873,
