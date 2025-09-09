@@ -13,6 +13,7 @@ export default function ProductViewPage() {
         rating: 4.8,
         reviews: 1873,
         desc:
+
             'Tercera entrega del universo Empyrean: magia, alianzas y un peligro inminente que pondrá a prueba a sus protagonistas.'
     }
 

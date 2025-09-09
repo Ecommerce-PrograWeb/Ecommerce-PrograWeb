@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="fix: ensure newline at end of file in cart.model.js">
-      <change afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/productview.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/components/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/productview.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/productview.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +46,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/eco-books/frontend/package.json" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -59,28 +60,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Tests",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Users\\susan\\WebstormProjects\\Ecommerce-PrograWeb\\eco-books\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Tests&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\susan\\WebstormProjects\\Ecommerce-PrograWeb\\eco-books\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app\productview" />
+      <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -100,7 +107,9 @@
       <workItem from="1755724693774" duration="1278000" />
       <workItem from="1757357893779" duration="215000" />
       <workItem from="1757358128807" duration="650000" />
-      <workItem from="1757358796921" duration="5527000" />
+      <workItem from="1757358796921" duration="7592000" />
+      <workItem from="1757383942297" duration="717000" />
+      <workItem from="1757432558724" duration="6079000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement cart functionality with controller, model, service, and routes">
       <option name="closed" value="true" />
@@ -123,6 +132,13 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="javascript:npm:react" />
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:tailwindcss" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+    <option featureType="dependencySupport" implementationName="javascript:npm:next" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
