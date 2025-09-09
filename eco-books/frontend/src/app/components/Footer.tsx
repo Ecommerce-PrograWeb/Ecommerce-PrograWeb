@@ -36,9 +36,21 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <div className="language-select">🌐 English ▼</div>
-        <p>Copyright © 2025. All rights reserved.</p>
+        <div
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "8px",
+            textAlign: "center",
+          }}
+        >
+          <div className="language-select">🌐 English ▼</div>
+          <p>Copyright © 2025. All rights reserved.</p>
+        </div>
       </div>
     </footer>
-  );
+  )
 }
