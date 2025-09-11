@@ -12,17 +12,17 @@ export default {
         'src/index.js',
         'src/modules/route/**/*.js',
         'src/core/errors/**/*.js',
-        'src/modules/service/**/*.js'
+        'src/modules/service/**/*.js',
+        'src/modules/controller/**'
       ],
       exclude: [
         'src/server.js',
         'src/config/**',
         'migrations/**',
         'src/modules/model/**',
-        'src/modules/controller/**',
         '**/sequelize-cli-config.js'
       ],
-      thresholds: { lines: 80, functions: 80, branches: 70, statements: 80 }
+      thresholds: { lines: 95, functions: 95, branches: 95, statements: 95 }
     }
   }
 };
