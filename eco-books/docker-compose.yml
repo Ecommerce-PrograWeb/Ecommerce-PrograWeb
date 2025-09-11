@@ -1,4 +1,4 @@
-version: "3.8"
+# puedes quitar la línea "version:" si quieres (es obsoleta)
 
 services:
   db:
@@ -36,17 +36,18 @@ services:
 
   frontend:
     build: ./frontend
+    working_dir: /app
+    command: npm run dev
     ports:
       - "3001:3000"
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
     depends_on:
       - backend
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
-    command: npm start
 
 volumes:
   db_data:
