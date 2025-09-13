@@ -1,4 +1,3 @@
-// src/modules/users/user.controller.js
 import * as userService from "../service/user.service.js";
 
 /** GET /users */

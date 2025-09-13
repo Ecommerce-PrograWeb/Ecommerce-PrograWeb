@@ -1,9 +1,7 @@
-// src/modules/users/user.service.js  
 import { sequelize } from "../../config/database.js";
 
 const USER_FIELDS_PUBLIC = "u.user_id, u.name, u.email, r.type AS role";
 
-/** Helper: obtener role_id por nombre */
 export async function findRoleIdByType(type) {
   if (!type) return null;
   const [rows] = await sequelize.query(
@@ -42,21 +40,18 @@ export async function createUser(data = {}) {
     throw new Error("name, email y password son obligatorios");
   }
 
-  // email único
   const [exists] = await sequelize.query(
     "SELECT 1 FROM `User` WHERE email = :email",
     { replacements: { email } }
   );
   if (exists.length) throw new Error("El email ya está registrado");
 
-  // resolver role_id por nombre si viene 'role'
   let roleId = role_id ?? null;
   if (!roleId && role) {
     roleId = await findRoleIdByType(role);
     if (!roleId) throw new Error(`Role '${role}' no existe. Inserta antes en tabla Role.`);
   }
 
-  //  guardar 
   const [result] = await sequelize.query(
     "INSERT INTO `User` (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)",
     { replacements: { name, email, password, role_id: roleId } }
@@ -87,7 +82,6 @@ export async function updateUser(id, data) {
     if (exists.length) throw new Error("El email ya está en uso por otro usuario");
   }
 
-  // construir SET dinámico
   const fields = [];
   const replacements = { id };
   for (const [k, v] of Object.entries(updates)) {

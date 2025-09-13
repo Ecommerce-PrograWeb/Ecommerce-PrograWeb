@@ -1,17 +1,7 @@
+import '../mocks/order.model.mock.js'; 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-
-vi.mock('../../src/modules/model/order.model.js', () => ({
-  default: {
-    findAll: vi.fn(),
-    findByPk: vi.fn(),
-    create: vi.fn(),
-    update: vi.fn(),
-    destroy: vi.fn(),
-  },
-}));
-
-import OrderService from '../../src/modules/service/order.service.js';
 import Order from '../../src/modules/model/order.model.js';
+import OrderService from '../../src/modules/service/order.service.js';
 
 describe('order.service', () => {
   beforeEach(() => vi.clearAllMocks());
