@@ -1,4 +1,5 @@
 import Book from '../model/book.model.js';
+import Author from '../model/author.model.js';
 
 const BookService = {
   // List with optional filters and pagination
@@ -36,7 +37,14 @@ const BookService = {
 
   // Get books by category
   async getBookByCategory(categoryId) {
-    return Book.findAll({ where: { category_id: categoryId } }); // Busca libros por categoría
+    return Book.findAll({
+      where: { category_id: categoryId },
+      include: [{
+        model: Author,
+        as: 'author',
+        attributes: ['name']
+      }]
+    }); // Search for books by category and include the author's name
   },
 };
 

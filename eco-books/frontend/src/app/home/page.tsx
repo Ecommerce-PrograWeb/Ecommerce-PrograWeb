@@ -6,7 +6,7 @@ import ExploreButton from '../components/ExploreButton';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-// Define el tipo para los libros
+// Define the type for the books
 interface Book {
   book_id: number;
   cover: string;
@@ -15,30 +15,33 @@ interface Book {
   author_id: number;
   description: string;
   purchase_price: number;
+  author?: {
+    name: string;
+  };
 }
 
 export default function Home() {
-  const [books, setBooks] = useState<Book[]>([]); // Estado para almacenar los libros
-  const [category, setCategory] = useState('1'); // Categoría seleccionada (por defecto "1")
+  const [books, setBooks] = useState<Book[]>([]); // State to store books
+  const [category, setCategory] = useState('1'); // Selected category (default "1")
 
-  // Función para obtener libros por categoría
+  // Function to fetch books by category
   const fetchBooksByCategory = async (categoryId: string) => {
     try {
       const response = await fetch(`http://localhost:3000/book/category/${categoryId}`);
       const data = await response.json();
       if (Array.isArray(data)) {
-        setBooks(data); // Actualiza el estado solo si la respuesta es un array
+        setBooks(data); // Update state only if response is an array
       } else {
-        console.error('La respuesta de la API no es un array:', data);
-        setBooks([]); // Establece un array vacío si la respuesta no es válida
+        console.error('API response is not an array:', data);
+        setBooks([]); // Set empty array if response is invalid
       }
     } catch (error) {
-      console.error('Error al obtener los libros:', error);
-      setBooks([]); // Establece un array vacío en caso de error
+      console.error('Error fetching books:', error);
+      setBooks([]); // Set empty array on error
     }
   };
 
-  // Llama a la API cuando la categoría cambie
+  // Call API when category changes
   useEffect(() => {
     fetchBooksByCategory(category);
   }, [category]);
@@ -59,7 +62,7 @@ export default function Home() {
           <h3>Explora nuestra selección de libros</h3>
           <h2>Productos Destacados</h2>
           <div className="product-grid">
-            {/* Verifica que books sea un array antes de usar .map() */}
+            {/* Check that books is an array before using .map() */}
             {Array.isArray(books) && books.length > 0 ? (
               books.map((book) => (
                 <article key={book.book_id} className="product-card">
@@ -72,7 +75,7 @@ export default function Home() {
                   </div>
                   <div className="product-info">
                     <h3 className="product-title">{book.name}</h3>
-                    <p className="product-author">Por: {book.author_id || 'Autor desconocido'}</p>
+                    <p className="product-author">Por: {book.author?.name || 'Autor desconocido'}</p>
                     <p className="product-description">{book.description}</p>
                     <div className="product-price">
                       <span className="price">Q{book.purchase_price}</span>
