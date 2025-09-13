@@ -58,8 +58,8 @@ export default function ProductViewPage() {
                         </div>
 
                         <div className={styles.actions}>
-                            <button className={styles.primary}>Order Now</button>
-                            <button className={styles.ghost}>Add to Cart</button>
+                            <button className={styles.primary}>Pedir Ahora</button>
+                            <button className={styles.ghost}>Agregar al carrito</button>
                         </div>
                     </div>
                 </section>

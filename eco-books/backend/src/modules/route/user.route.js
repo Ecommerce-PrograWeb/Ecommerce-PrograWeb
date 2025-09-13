@@ -1,4 +1,5 @@
-﻿import { Router } from "express";
+﻿
+import { Router } from "express";
 import * as controller from "../controller/user.controller.js";
 
 const router = Router();
@@ -12,4 +13,4 @@ router.delete("/:id", controller.deleteUser);
 
 router.post("/auth/login", controller.login);
 
-export default router;
+export default router; //  para que el import por default funcione

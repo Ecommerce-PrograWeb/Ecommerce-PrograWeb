@@ -17,7 +17,8 @@
     "express": "^4.19.2",
     "morgan": "^1.10.0",
     "mysql2": "^3.11.0",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^3.2.4",

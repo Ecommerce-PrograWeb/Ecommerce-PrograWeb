@@ -23,7 +23,7 @@ export async function getBookById(req, res) {
     if (!book) return res.status(404).json({ error: 'Book not found' });
     return res.status(200).json(book);
   } catch (err) {
-    console.error('GET /books/:id error:', err);
+    console.error('GET /book/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -50,7 +50,7 @@ export async function createBook(req, res) {
     if (err.name === 'SequelizeDatabaseError' || err.name === 'SequelizeValidationError') {
       return res.status(422).json({ error: err.message });
     }
-    console.error('POST /books error:', err);
+    console.error('POST /book error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -78,7 +78,7 @@ export async function patchBook(req, res) {
     if (err.name === 'SequelizeDatabaseError' || err.name === 'SequelizeValidationError') {
       return res.status(422).json({ error: err.message });
     }
-    console.error('PATCH /books/:id error:', err);
+    console.error('PATCH /book/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -108,7 +108,7 @@ export async function putBook(req, res) {
     if (err.name === 'SequelizeDatabaseError' || err.name === 'SequelizeValidationError') {
       return res.status(422).json({ error: err.message });
     }
-    console.error('PUT /books/:id error:', err);
+    console.error('PUT /book/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -121,7 +121,26 @@ export async function deleteBook(req, res) {
     if (!deleted) return res.status(404).json({ error: 'Book not found' });
     return res.status(204).send();
   } catch (err) {
-    console.error('DELETE /books/:id error:', err);
+    console.error('DELETE /book/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+// GET /books/category/:category
+export async function getBookByCategory(req, res) {
+  try {
+    const { categoryId } = req.params;
+    console.log('Buscando libros para categoría:', categoryId); // Para debug
+    
+    const books = await BookService.getBookByCategory(categoryId);
+    
+    if (!books || books.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron libros para esta categoría' });
+    }
+    
+    res.status(200).json(books);
+  } catch (error) {
+    console.error('Error al obtener libros por categoría:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 }
