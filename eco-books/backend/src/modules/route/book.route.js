@@ -2,7 +2,6 @@ import { Router } from 'express';
 import {
   getBooks,
   getBookById,
-  getBookByCategory,
   createBook,
   patchBook,
   putBook,
@@ -13,7 +12,6 @@ const router = Router();
 
 router.get('/', getBooks);
 router.get('/:id', getBookById);
-router.get('/category/:categoryId', getBookByCategory);
 router.post('/', createBook);
 router.patch('/:id', patchBook);
 router.put('/:id', putBook);

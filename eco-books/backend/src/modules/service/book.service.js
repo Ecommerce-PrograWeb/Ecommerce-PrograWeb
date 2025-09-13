@@ -33,11 +33,6 @@ const BookService = {
 
   // Delete book
   deleteBook: (id) => Book.destroy({ where: { book_id: id } }),
-
-  // Get books by category
-  async getBookByCategory(categoryId) {
-    return Book.findAll({ where: { category_id: categoryId } }); // Busca libros por categoría
-  },
 };
 
 export default BookService;

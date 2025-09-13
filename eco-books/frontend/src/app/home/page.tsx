@@ -1,51 +1,15 @@
-"use client";
+/* ----- HOME PAGE -----*/
 
-import { useState, useEffect } from 'react';
-import ContactForm from '../components/ContactForm';
-import ExploreButton from '../components/ExploreButton';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import ContactForm from '../components/ContactForm'
+import ExploreButton from '../components/ExploreButton'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
-// Define el tipo para los libros
-interface Book {
-  book_id: number;
-  cover: string;
-  name: string;
-  category_id: number;
-  author_id: number;
-  description: string;
-  purchase_price: number;
-}
 
 export default function Home() {
-  const [books, setBooks] = useState<Book[]>([]); // Estado para almacenar los libros
-  const [category, setCategory] = useState('1'); // Categoría seleccionada (por defecto "1")
-
-  // Función para obtener libros por categoría
-  const fetchBooksByCategory = async (categoryId: string) => {
-    try {
-      const response = await fetch(`http://backend:3000/book/category/${categoryId}`);
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        setBooks(data); // Actualiza el estado solo si la respuesta es un array
-      } else {
-        console.error('La respuesta de la API no es un array:', data);
-        setBooks([]); // Establece un array vacío si la respuesta no es válida
-      }
-    } catch (error) {
-      console.error('Error al obtener los libros:', error);
-      setBooks([]); // Establece un array vacío en caso de error
-    }
-  };
-
-  // Llama a la API cuando la categoría cambie
-  useEffect(() => {
-    fetchBooksByCategory(category);
-  }, [category]);
-
   return (
     <>
-      <Header />
+      <Header />  
       {/* HERO */}
       <section id="home">
         <h2>Bienvenido a e-Co Books</h2>
@@ -59,28 +23,60 @@ export default function Home() {
           <h3>Explora nuestra selección de libros</h3>
           <h2>Productos Destacados</h2>
           <div className="product-grid">
-            {/* Verifica que books sea un array antes de usar .map() */}
-            {Array.isArray(books) && books.length > 0 ? (
-              books.map((book) => (
-                <article key={book.book_id} className="product-card">
-                  <div className="product-image">
-                    <img src={book.cover || '/Images/default-cover.jpg'} alt={`Portada de ${book.name}`} />
-                    <span className="product-badge">{book.category_id}</span>
-                  </div>
-                  <div className="product-info">
-                    <h3 className="product-title">{book.name}</h3>
-                    <p className="product-author">Por: {book.author_id || 'Autor desconocido'}</p>
-                    <p className="product-description">{book.description}</p>
-                    <div className="product-price">
-                      <span className="price">Q{book.purchase_price}</span>
-                    </div>
-                    <button className="add-to-cart-btn">Pedir Ahora</button>
-                  </div>
-                </article>
-              ))
-            ) : (
-              <p>No hay libros disponibles en esta categoría.</p>
-            )}
+            {/* Product 1 */}
+            <article className="product-card">
+              <div className="product-image">
+                <img src="/Images/Book Covers/Onyx Storm.jpg" alt="Portada de Libro 1" />
+                <span className="product-badge">Nuevo</span>
+              </div>
+              <div className="product-info">
+                <h3 className="product-title">Onyx Storm</h3>
+                <p className="product-author">Por: Rebecca Yarros</p>
+                <p className="product-description">
+                  Una épica de acción y romance en un mundo de dragones y guerra.
+                </p>
+                <div className="product-price">
+                  <span className="price">Q199,99</span>
+                </div>
+                <button className="add-to-cart-btn">Pedir Ahora</button>
+              </div>
+            </article>
+
+            {/* Product 2 */}
+            <article className="product-card">
+              <div className="product-image">
+                <img src="/Images/Book Covers/The Let Them Theory.jpg" alt="Portada del Libro 2" />
+                <span className="product-badge bestseller">Bestseller</span>
+              </div>
+              <div className="product-info">
+                <h3 className="product-title">The Let Them Theory</h3>
+                <p className="product-author">Por: Mel Robbins</p>
+                <p className="product-description">
+                  Una guía motivacional para superar bloqueos mentales y encontrar empoderamiento.
+                </p>
+                <div className="product-price">
+                  <span className="price">Q234,99</span>
+                </div>
+                <button className="add-to-cart-btn">Pedir Ahora</button>
+              </div>
+            </article>
+
+            {/* Product 3 */}
+            <article className="product-card">
+              <div className="product-image">
+                <img src="/Images/Book Covers/Sunrise on the Reaping.jpg" alt="Portada del Libro 3" />
+                <span className="product-badge sale">Oferta</span>
+              </div>
+              <div className="product-info">
+                <h3 className="product-title">Sunrise on the Reaping</h3>
+                <p className="product-author">Por: Suzanne Collins</p>
+                <p className="product-description">Una precuela de Los Juegos del Hambre.</p>
+                <div className="product-price">
+                  <span className="price">Q199,99</span>
+                </div>
+                <button className="add-to-cart-btn">Pedir Ahora</button>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -90,27 +86,19 @@ export default function Home() {
           <h2>Elige tu Categoria Favorita</h2>
           <div className="categories-section">
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('1')}>
-                <span className="category-icon">⚔️</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">⚔️</span></button>
               <span className="category-label">Acción</span>
             </div>
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('2')}>
-                <span className="category-icon">🏞️</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">🏞️</span></button>
               <span className="category-label">Aventura</span>
             </div>
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('3')}>
-                <span className="category-icon">💖</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">💖</span></button>
               <span className="category-label">Romance</span>
             </div>
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('4')}>
-                <span className="category-icon">🧙‍♂️</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">🧙‍♂️</span></button>
               <span className="category-label">Fantasía</span>
             </div>
           </div>
@@ -125,5 +113,5 @@ export default function Home() {
       </main>
       <Footer />
     </>
-  );
+  )
 }

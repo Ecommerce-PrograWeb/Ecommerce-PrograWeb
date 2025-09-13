@@ -1,7 +1,17 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import '../mocks/cart.model.mock.js';
-import Cart from '../../src/modules/model/cart.model.js';
+
+vi.mock('../../src/modules/model/cart.model.js', () => ({
+  default: {
+    findAll: vi.fn(),
+    findByPk: vi.fn(),
+    create: vi.fn(),
+    update: vi.fn(),
+    destroy: vi.fn(),
+  },
+}));
+
 import CartService from '../../src/modules/service/cart.service.js';
+import Cart from '../../src/modules/model/cart.model.js';
 
 describe('cart.service', () => {
   beforeEach(() => vi.clearAllMocks());

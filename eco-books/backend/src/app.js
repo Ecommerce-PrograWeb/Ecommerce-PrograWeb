@@ -2,11 +2,8 @@
 import morgan from "morgan";
 import router from "./index.js";
 import { errorHandler } from "./core/errors/error-handler.js";
-import cors from 'cors';
 
 const app = express();
-
-app.use(cors()); // Permite solicitudes desde el frontend
 app.use(express.json());
 app.use(morgan("dev"));
 
