@@ -21,7 +21,13 @@ const BookService = {
   },
 
   // Search by ID
-  getBookById: (id) => Book.findByPk(id),
+  getBookById: (id) => Book.findByPk(id, {
+    include: [{
+      model: Author,
+      as: 'author',
+      attributes: ['name']
+    }]
+  }),
 
   // Create new book
   createBook: (data) => Book.create(data),

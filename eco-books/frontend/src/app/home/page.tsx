@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import ContactForm from '../components/ContactForm';
 import ExploreButton from '../components/ExploreButton';
 import Header from '../components/Header';
@@ -23,6 +24,7 @@ interface Book {
 export default function Home() {
   const [books, setBooks] = useState<Book[]>([]); // State to store books
   const [category, setCategory] = useState('1'); // Selected category (default "1")
+  const router = useRouter();
 
   // Function to fetch books by category
   const fetchBooksByCategory = async (categoryId: string) => {
@@ -39,6 +41,10 @@ export default function Home() {
       console.error('Error fetching books:', error);
       setBooks([]); // Set empty array on error
     }
+  };
+
+  const handleBookClick = (bookId: number) => {
+    router.push(`/productview?id=${bookId}`);
   };
 
   // Call API when category changes
@@ -65,7 +71,11 @@ export default function Home() {
             {/* Check that books is an array before using .map() */}
             {Array.isArray(books) && books.length > 0 ? (
               books.map((book) => (
-                <article key={book.book_id} className="product-card">
+                <article 
+                  key={book.book_id} className="product-card"
+                  onClick={() => handleBookClick(book.book_id)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div className="product-image">
                     <img 
                       src={book.cover ? `/Images/BookCovers/${book.cover}` : '/Images/default-cover.jpg'} 
