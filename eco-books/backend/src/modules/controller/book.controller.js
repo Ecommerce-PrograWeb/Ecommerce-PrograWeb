@@ -130,10 +130,17 @@ export async function deleteBook(req, res) {
 export async function getBookByCategory(req, res) {
   try {
     const { categoryId } = req.params;
-    const book = await BookService.getBookByCategory(categoryId); // Llama al servicio
-    return res.status(200).json(book);
-  } catch (err) {
-    console.error('GET /book/category/:categoryId error:', err);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    console.log('Buscando libros para categoría:', categoryId); // Para debug
+    
+    const books = await BookService.getBookByCategory(categoryId);
+    
+    if (!books || books.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron libros para esta categoría' });
+    }
+    
+    res.status(200).json(books);
+  } catch (error) {
+    console.error('Error al obtener libros por categoría:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
 }

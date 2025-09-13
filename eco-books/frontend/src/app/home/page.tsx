@@ -24,7 +24,7 @@ export default function Home() {
   // Función para obtener libros por categoría
   const fetchBooksByCategory = async (categoryId: string) => {
     try {
-      const response = await fetch(`http://backend:3000/book/category/${categoryId}`);
+      const response = await fetch(`http://localhost:3000/book/category/${categoryId}`);
       const data = await response.json();
       if (Array.isArray(data)) {
         setBooks(data); // Actualiza el estado solo si la respuesta es un array
@@ -64,7 +64,10 @@ export default function Home() {
               books.map((book) => (
                 <article key={book.book_id} className="product-card">
                   <div className="product-image">
-                    <img src={book.cover || '/Images/default-cover.jpg'} alt={`Portada de ${book.name}`} />
+                    <img 
+                      src={book.cover ? `/Images/BookCovers/${book.cover}` : '/Images/default-cover.jpg'} 
+                      alt={`Portada de ${book.name}`} 
+                    />
                     <span className="product-badge">{book.category_id}</span>
                   </div>
                   <div className="product-info">

@@ -16,6 +16,8 @@ services:
       - ./backend/migrations/04-order.sql:/docker-entrypoint-initdb.d/04-order.sql
       - ./backend/migrations/05-payment.sql:/docker-entrypoint-initdb.d/05-payment.sql
       - ./backend/migrations/inserts.sql:/docker-entrypoint-initdb.d/inserts.sql
+    networks:
+          - app-network
 
   backend:
     build: ./backend
@@ -33,6 +35,8 @@ services:
     volumes:
       - ./backend:/app
     command: sh -c "sleep 10 && npm start"
+    networks:
+      - app-network
 
   frontend:
     build: ./frontend
@@ -48,6 +52,12 @@ services:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
+    networks:
+      - app-network
+      
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   db_data:

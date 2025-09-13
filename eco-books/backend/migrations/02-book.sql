@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS Category (
 CREATE TABLE IF NOT EXISTS Book (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
+    cover varchar(500),
     description VARCHAR(500) NOT NULL,
     publication_date DATE NOT NULL,
     purchase_price DECIMAL(10,2) NOT NULL,
@@ -54,27 +55,6 @@ CREATE TABLE IF NOT EXISTS Book (
     FOREIGN KEY (created_by) REFERENCES User(user_id)
 );
 
--- Insert data into Author
-INSERT INTO Author (name) VALUES ('Rebecca Yarros');
-INSERT INTO Author (name) VALUES ('Mel Robbins');
-INSERT INTO Author (name) VALUES ('Suzanne Collins');
-
--- Insert data into Publisher
-INSERT INTO Publisher (name) VALUES ('Penguin Random House');
-INSERT INTO Publisher (name) VALUES ('HarperCollins');
-
--- Insert data into Category
-INSERT INTO Category (name) VALUES ('Acción');
-INSERT INTO Category (name) VALUES ('Aventura');
-INSERT INTO Category (name) VALUES ('Romance');
-INSERT INTO Category (name) VALUES ('Fantasía');
-
--- Insert data into Book
-INSERT INTO Book (name, description, publication_date, purchase_price, author_id, publisher_id, category_id)
-VALUES 
-('Onyx Storm', 'Una épica de acción y romance...', '2025-01-01', 199.99, 1, 1, 1),
-('The Let Them Theory', 'Una guía motivacional...', '2025-02-01', 234.99, 2, 2, 3),
-('Sunrise on the Reaping', 'Una precuela de Los Juegos del Hambre', '2025-03-01', 199.99, 3, 1, 4);
 
 /*
 
