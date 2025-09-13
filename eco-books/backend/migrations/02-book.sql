@@ -2,36 +2,36 @@ CREATE DATABASE IF NOT EXISTS eco_books;
 USE eco_books;
 
 -- Author
-CREATE TABLE IF NOT EXISTS Author (
-    author_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_date DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
-    deleted_date DATETIME NULL,
-    created_by INT,
-    FOREIGN KEY (created_by) REFERENCES User(user_id)
+create table IF NOT EXISTS Author(
+    author_id int auto_increment primary key,
+    name varchar(100) not null,
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Publisher
-CREATE TABLE IF NOT EXISTS Publisher (
-    publisher_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_date DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
-    deleted_date DATETIME NULL,
-    created_by INT,
-    FOREIGN KEY (created_by) REFERENCES User(user_id)
+create table IF NOT EXISTS Publisher(
+    publisher_id int auto_increment primary key,
+    name varchar(100) not null,
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Category
-CREATE TABLE IF NOT EXISTS Category (
-    category_id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    created_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_date DATETIME NULL ON UPDATE CURRENT_TIMESTAMP,
-    deleted_date DATETIME NULL,
-    created_by INT,
-    FOREIGN KEY (created_by) REFERENCES User(user_id)
+create table IF NOT EXISTS Category(
+    category_id int auto_increment primary key,
+    name varchar(100) not null,
+    created_date datetime not null default current_timestamp,
+    updated_date datetime null on update current_timestamp,
+    deleted_date datetime  null,
+    created_by int,
+    Foreign key (created_by) references User(user_id)
 );
 
 -- Book

@@ -1,5 +1,5 @@
 /* ProductView styles  */
-.wrapper{ max-width:1200px; margin:0 auto; padding:1rem; }
+.wrapper{ max-width:1200px; margin:0 auto; padding:1rem; margin-top:2rem; margin-bottom:-3rem;  }
 .card{ display:grid; gap:1rem; }
 
 /* Media */
@@ -21,12 +21,12 @@
 .dot{ width:4px; height:4px; border-radius:999px; background:#c4c4c4; }
 
 /* Qty */
-.qtyRow{ display:inline-flex; align-items:center; gap:1rem; margin-top:.25rem; }
+.qtyRow{ display:flex; justify-content: center; align-items:center; gap:1rem; margin-top:1rem; }
 .qtyBtn{ width:36px; height:36px; border-radius:10px; border:1px solid #e5e7eb; background:#f3f4f6; font-size:1.1rem; }
 .qty{ min-width:1.25rem; text-align:center; font-weight:700; }
 
 /* Actions */
-.actions{ display:flex; gap:.8rem; margin-top:.6rem; flex-wrap:wrap; }
+.actions{ display:flex; gap:.8rem; margin-top:1.5rem; flex-wrap:wrap; }
 .primary{ padding:.7rem 1.25rem; border-radius:999px; border:none; color:#fff; background:#0b0b0b; font-weight:700; }
 .primary:hover{ opacity:.92; }
 .ghost{ padding:.7rem 1.25rem; border-radius:999px; background:#fff; border:1px solid #e5e7eb; font-weight:700; }

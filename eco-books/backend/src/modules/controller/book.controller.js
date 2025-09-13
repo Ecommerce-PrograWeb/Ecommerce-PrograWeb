@@ -23,7 +23,7 @@ export async function getBookById(req, res) {
     if (!book) return res.status(404).json({ error: 'Book not found' });
     return res.status(200).json(book);
   } catch (err) {
-    console.error('GET /book/:id error:', err);
+    console.error('GET /books/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -50,7 +50,7 @@ export async function createBook(req, res) {
     if (err.name === 'SequelizeDatabaseError' || err.name === 'SequelizeValidationError') {
       return res.status(422).json({ error: err.message });
     }
-    console.error('POST /book error:', err);
+    console.error('POST /books error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -78,7 +78,7 @@ export async function patchBook(req, res) {
     if (err.name === 'SequelizeDatabaseError' || err.name === 'SequelizeValidationError') {
       return res.status(422).json({ error: err.message });
     }
-    console.error('PATCH /book/:id error:', err);
+    console.error('PATCH /books/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
@@ -108,7 +108,7 @@ export async function putBook(req, res) {
     if (err.name === 'SequelizeDatabaseError' || err.name === 'SequelizeValidationError') {
       return res.status(422).json({ error: err.message });
     }
-    console.error('PUT /book/:id error:', err);
+    console.error('PUT /books/:id error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

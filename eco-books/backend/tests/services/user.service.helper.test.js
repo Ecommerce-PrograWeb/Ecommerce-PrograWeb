@@ -1,5 +1,8 @@
-import '../mocks/database.mock.js';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+vi.mock('../../src/config/database.js', () => ({
+  sequelize: { query: vi.fn() },
+}));
 import { sequelize } from '../../src/config/database.js';
 import { findRoleIdByType } from '../../src/modules/service/user.service.js';
 

@@ -1,5 +1,10 @@
-import '../mocks/database.mock.js';
+// tests/services/user.service.test.js
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+vi.mock('../../src/config/database.js', () => ({
+  sequelize: { query: vi.fn() },
+}));
+
 import { sequelize } from '../../src/config/database.js';
 import * as UserService from '../../src/modules/service/user.service.js';
 

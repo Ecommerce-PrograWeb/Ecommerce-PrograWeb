@@ -1,21 +1,10 @@
-"use client";
+/* ----- HOME PAGE -----*/
 
-import { useState, useEffect } from 'react';
-import ContactForm from '../components/ContactForm';
-import ExploreButton from '../components/ExploreButton';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import ContactForm from '../components/ContactForm'
+import ExploreButton from '../components/ExploreButton'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
-// Define el tipo para los libros
-interface Book {
-  book_id: number;
-  cover: string;
-  name: string;
-  category_id: number;
-  author_id: number;
-  description: string;
-  purchase_price: number;
-}
 
 export default function Home() {
   const [books, setBooks] = useState<Book[]>([]); // Estado para almacenar los libros
@@ -45,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header />  
       {/* HERO */}
       <section id="home">
         <h2>Bienvenido a e-Co Books</h2>
@@ -93,27 +82,19 @@ export default function Home() {
           <h2>Elige tu Categoria Favorita</h2>
           <div className="categories-section">
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('1')}>
-                <span className="category-icon">⚔️</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">⚔️</span></button>
               <span className="category-label">Acción</span>
             </div>
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('2')}>
-                <span className="category-icon">🏞️</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">🏞️</span></button>
               <span className="category-label">Aventura</span>
             </div>
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('3')}>
-                <span className="category-icon">💖</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">💖</span></button>
               <span className="category-label">Romance</span>
             </div>
             <div className="category-item">
-              <button className="category-btn" onClick={() => setCategory('4')}>
-                <span className="category-icon">🧙‍♂️</span>
-              </button>
+              <button className="category-btn"><span className="category-icon">🧙‍♂️</span></button>
               <span className="category-label">Fantasía</span>
             </div>
           </div>
@@ -128,5 +109,5 @@ export default function Home() {
       </main>
       <Footer />
     </>
-  );
+  )
 }
