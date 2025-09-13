@@ -20,7 +20,9 @@ interface Book {
   author?: {
     name: string;
   };
-  category_name?: string;
+  category?: {
+    name:string;
+  };
 }
 
 // Componente que usa useSearchParams
@@ -125,7 +127,7 @@ function ProductContent() {
           <div className={styles.meta}>
             <span className={styles.metaItem}>★ <b>4.8</b> (1,873)</span>
             <span className={styles.dot} />
-            <span className={styles.metaItem}>📚 {book.category_name || 'Categoría'}</span>
+            <span className={styles.metaItem}>📚 {book.category?.name || 'Categoría'}</span>
           </div>
 
           <div className={styles.qtyRow} aria-label="Cantidad">
