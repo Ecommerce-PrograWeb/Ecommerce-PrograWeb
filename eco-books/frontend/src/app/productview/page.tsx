@@ -2,6 +2,8 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Image from 'next/image'
 import styles from './productview.module.css'
+import Link from 'next/link'
+
 
 export default function ProductViewPage() {
     const product = {
@@ -58,8 +60,11 @@ export default function ProductViewPage() {
                         </div>
 
                         <div className={styles.actions}>
-                            <button className={styles.primary}>Order Now</button>
-                            <button className={styles.ghost}>Add to Cart</button>
+                            <button className={styles.primary}>Pedir Ahora</button>
+                            <button className={styles.ghost}>Agregar al carrito</button>
+                            <Link href="/home" passHref>
+                                <button className={styles.primary}>Regresar a Inicio </button>
+                            </Link>
                         </div>
                     </div>
                 </section>
