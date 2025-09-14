@@ -23,31 +23,31 @@ jobs:
           eco-books/frontend/package-lock.json
 
     - name: Install Backend Dependencies
-      working-directory: ./backend
+      working-directory: eco-books/backend
       run: npm ci
 
     - name: Build Backend
-      working-directory: ./backend
+      working-directory: eco-books/backend
       run: npm run build
 
     - name: Run Backend Tests
-      working-directory: ./backend
+      working-directory: eco-books/backend
       run: npm run test:cov
 
     - name: Verify Vitest Installation
-      working-directory: ./backend
+      working-directory: eco-books/backend
       run: npx vitest --version
 
     - name: Install Frontend Dependencies
-      working-directory: ./frontend
+      working-directory: eco-books/frontend
       run: npm ci
 
     - name: Build Frontend
-      working-directory: ./frontend
+      working-directory: eco-books/frontend
       run: npm run build
 
     - name: Run Frontend Tests
-      working-directory: ./frontend
+      working-directory: eco-books/frontend
       run: npm run test
 
   docker:
