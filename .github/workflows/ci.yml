@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ Tests ]
+    branches: [ Tests, CI/CD-testing, main ]
   pull_request:
-    branches: [ Tests ]
+    branches: [ Tests, CI/CD-testing, main ]
 
 jobs:
   build-and-test:
@@ -28,7 +28,7 @@ jobs:
 
     - name: Run Backend Tests
       working-directory: eco-books/backend
-      run: npm run test:cov
+      run: npm run test:all
 
     - name: Verify Vitest Installation
       working-directory: eco-books/backend
@@ -66,13 +66,13 @@ jobs:
     - name: Build and push Frontend
       uses: docker/build-push-action@v4
       with:
-        context: ./frontend
+        context: ./eco-books/frontend
         push: true
-        tags: yourdockerhubusername/eco-books-frontend:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/eco-books-frontend:latest
 
     - name: Build and push Backend
       uses: docker/build-push-action@v4
       with:
-        context: ./backend
+        context: ./eco-books/backend
         push: true
-        tags: yourdockerhubusername/eco-books-backend:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/eco-books-backend:latest
