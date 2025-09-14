@@ -2,16 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import request from 'supertest';
 import app from '../../src/app.js';
 
-vi.mock('../../src/modules/service/book.service.js', () => ({
-  default: {
-    getBooks: vi.fn(),
-    getBookById: vi.fn(),
-    createBook: vi.fn(),
-    updateBook: vi.fn(),
-    deleteBook: vi.fn(),
-  },
-}));
-import bookService from '../../src/modules/service/book.service.js';
+
 
 describe('Book routes', () => {
   beforeEach(() => vi.clearAllMocks());

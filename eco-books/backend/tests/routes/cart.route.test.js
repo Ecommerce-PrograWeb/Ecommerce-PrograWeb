@@ -2,30 +2,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
 import request from 'supertest';
 import app from '../../src/app.js';
 
-vi.mock('../../src/modules/controller/cart.controller.js', () => {
-  return {
-    // named exports
-    getCarts: vi.fn((req, res) => {
-      return res.status(200).json([{ id: 1, total: 20 }]);
-    }),
-    createCart: vi.fn((req, res) => {
-      const { total } = req.body || {};
-      if (total == null) {
-        return res.status(400).json({ error: 'total is required' });
-      }
-      return res.status(201).json({ id: 10, ...req.body });
-    }),
-    default: {
-      getById: vi.fn((req, res) => {
-        const { id } = req.params;
-        if (id === '999') {
-          return res.status(404).json({ error: 'Cart not found' });
-        }
-        return res.status(200).json({ id: Number(id), total: 15 });
-      }),
-    },
-  };
-});
+
 
 describe('Cart routes', () => {
   beforeEach(() => vi.clearAllMocks());

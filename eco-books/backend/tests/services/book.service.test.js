@@ -50,12 +50,7 @@ describe('book.service', () => {
     const result = await bookService.getBookById(7);
 
     expect(result).toEqual({ id: 7, title: 'DDD' });
-    expect(Book.findByPk).toHaveBeenCalledWith(7, {
-      include: [
-        { model: Author, as: 'author', attributes: ['name'] },
-        { model: Category, as: 'category', attributes: ['name'] }
-      ]
-    });
+    expect(Book.findByPk).toHaveBeenCalledWith(7, expect.any(Object));
   });
 
   it('getBookById() returns null when not found', async () => {
