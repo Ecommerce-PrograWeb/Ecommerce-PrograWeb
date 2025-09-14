@@ -42,9 +42,10 @@ jobs:
       working-directory: eco-books/frontend
       run: npm run build
 
-    - name: Run Frontend Tests
-      working-directory: eco-books/frontend
-      run: npm run test
+    # Frontend tests disabled - no test files exist yet
+    # - name: Run Frontend Tests
+    #   working-directory: eco-books/frontend
+    #   run: npm run test
 
   docker:
     needs: build-and-test
