@@ -2,6 +2,7 @@ export default {
   test: {
     globals: true,
     environment: 'node',
+    transformMode: { web: [/.*/] },
     coverage: {
       provider: 'v8',
       all: true,
