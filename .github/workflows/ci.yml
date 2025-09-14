@@ -50,7 +50,7 @@ jobs:
   docker:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/CI/CD-testing' || github.ref == 'refs/heads/Tests'
 
     steps:
     - uses: actions/checkout@v3
