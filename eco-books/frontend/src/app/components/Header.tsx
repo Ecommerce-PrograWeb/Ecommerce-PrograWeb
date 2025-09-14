@@ -6,13 +6,12 @@ export default function Header() {
       <nav className="nav-container">
         <div className="logo">
           <Link href="/home">
-          <span className="symbols">star</span>
+          <span className="symbols">Home</span>
           </Link>
-          LOGO
         </div>
 
         <ul className="nav-links">
-          <li><a href="#home">Home</a></li>
+          <li><Link href="/home">Home</Link></li>
           <li><a href="#discover">Discover</a></li>
           <li><a href="#blog">Blog</a></li>
           <li><a href="#about">About Us</a></li>

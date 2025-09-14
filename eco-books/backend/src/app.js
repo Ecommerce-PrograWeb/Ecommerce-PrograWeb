@@ -6,7 +6,7 @@ import cors from 'cors';
 
 const app = express();
 
-app.use(cors()); // Permite solicitudes desde el frontend
+app.use(cors()); // Allow requests from frontend
 app.use(express.json());
 app.use(morgan("dev"));
 

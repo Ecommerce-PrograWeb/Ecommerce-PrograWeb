@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/database.js';
+import Author from './author.model.js';
+import Category from './category.model.js';
 
 const Book = sequelize.define('Book', {
   book_id: {
@@ -43,5 +45,9 @@ const Book = sequelize.define('Book', {
   tableName: 'Book',
   timestamps: false
 });
+
+// Relation: A book belongs to an author and category
+Book.belongsTo(Author, { foreignKey: 'author_id', as: 'author' });
+Book.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
 
 export default Book;
