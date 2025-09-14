@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import Image from 'next/image';
 import styles from './productview.module.css';
 
-// Define la interfaz para el libro
+// Define the interface for the book
 interface Book {
   book_id: number;
   name: string;
@@ -25,7 +25,7 @@ interface Book {
   };
 }
 
-// Componente que usa useSearchParams
+// Component that uses useSearchParams
 function ProductContent() {
   const searchParams = useSearchParams();
   const bookId = searchParams.get('id');
@@ -33,7 +33,7 @@ function ProductContent() {
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
 
-  // Función para obtener los datos del libro
+  // Function to fetch book data
   const fetchBookById = async (id: string) => {
     try {
       const response = await fetch(`http://localhost:3000/book/${id}`);
@@ -61,12 +61,12 @@ function ProductContent() {
     }
   }, [bookId]);
 
-  // Funciones para manejar la cantidad
+  // Functions to handle quantity
   const handleQuantityChange = (delta: number) => {
     setQuantity(Math.max(1, quantity + delta));
   };
 
-  // Estados de carga y error
+  // Loading and error states
   if (loading) {
     return (
       <main className={styles.wrapper}>
@@ -102,7 +102,7 @@ function ProductContent() {
   return (
     <main className={styles.wrapper}>
       <section className={styles.card}>
-        {/* Imagen */}
+        {/* Image */}
         <div className={styles.media}>
           <button className={styles.fav} aria-label="Agregar a favoritos">♡</button>
           <div className={styles.imgBox}>
@@ -158,7 +158,7 @@ function ProductContent() {
   );
 }
 
-// Componente principal con Suspense
+// Main component with Suspense
 export default function ProductViewPage() {
   return (
     <>
