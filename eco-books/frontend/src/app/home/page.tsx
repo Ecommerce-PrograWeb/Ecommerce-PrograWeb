@@ -63,7 +63,7 @@ export default function Home() {
       </section>
 
       <main>
-        {/* PRODUCTOS */}
+        {/* PRODUCTS */}
         <section id="products">
           <h3>Explora nuestra selección de libros</h3>
           <h2>Productos Destacados</h2>
