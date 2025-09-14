@@ -1,4 +1,4 @@
-// Mock completo de Sequelize para tests de integración
+// Full Sequelize mock for integration tests
 const mockSequelize = {
   define: jest.fn(() => ({
     findAll: jest.fn().mockResolvedValue([]),
@@ -14,7 +14,7 @@ const mockSequelize = {
   close: jest.fn().mockResolvedValue(true),
 };
 
-// Mock de la configuración de la base de datos
+// Mock of the database configuration
 jest.mock('../../src/config/database.js', () => ({
   sequelize: mockSequelize,
   DataTypes: {
@@ -26,7 +26,7 @@ jest.mock('../../src/config/database.js', () => ({
   },
 }));
 
-// Configuración de variables de entorno para tests
+// Environment variables setup for tests
 process.env.NODE_ENV = 'test';
 process.env.DB_HOST = 'localhost';
 process.env.DB_NAME = 'test_db';

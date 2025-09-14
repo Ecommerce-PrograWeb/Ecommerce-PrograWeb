@@ -1,8 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-
-vi.mock('../../src/config/database.js', () => ({
-  sequelize: { query: vi.fn() },
-}));
+import '../mocks/database.mock.js'; 
+import { describe, it, expect, beforeEach } from 'vitest';
 import { sequelize } from '../../src/config/database.js';
 import { findRoleIdByType } from '../../src/modules/service/user.service.js';
 
@@ -13,7 +10,7 @@ describe('user.service/findRoleIdByType', () => {
     expect(await findRoleIdByType(null)).toBeNull();
     expect(await findRoleIdByType(undefined)).toBeNull();
     expect(await findRoleIdByType('')).toBeNull();
-    expect(sequelize.query).not.toHaveBeenCalled(); // early return => no query
+    expect(sequelize.query).not.toHaveBeenCalled();
   });
 
   it('returns role_id when found', async () => {
@@ -30,9 +27,9 @@ describe('user.service/findRoleIdByType', () => {
   });
 
   it('returns null when first row exists but has no role_id', async () => {
-  sequelize.query.mockResolvedValueOnce([[{}]]); // rows = [{}], no role_id
-  const r = await findRoleIdByType('ANY');
-  expect(r).toBeNull();
-  expect(sequelize.query).toHaveBeenCalledTimes(1);
+    sequelize.query.mockResolvedValueOnce([[{}]]);
+    const r = await findRoleIdByType('ANY');
+    expect(r).toBeNull();
+    expect(sequelize.query).toHaveBeenCalledTimes(1);
   });
 });

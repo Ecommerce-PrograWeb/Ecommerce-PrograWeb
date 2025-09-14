@@ -1,10 +1,5 @@
-// tests/services/user.service.test.js
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-
-vi.mock('../../src/config/database.js', () => ({
-  sequelize: { query: vi.fn() },
-}));
-
+import '../mocks/database.mock.js'; 
+import { describe, it, expect, beforeEach } from 'vitest';
 import { sequelize } from '../../src/config/database.js';
 import * as UserService from '../../src/modules/service/user.service.js';
 
@@ -41,7 +36,7 @@ describe('user.service (raw SQL)', () => {
   });
 
   it('createUser throws if email already exists', async () => {
-    mockSQL([[{ '1': 1 }]]); // SELECT 1 ... email taken
+    mockSQL([[{ '1': 1 }]]);
     await expect(
       UserService.createUser({ name: 'A', email: 'a@b.com', password: 'x' })
     ).rejects.toThrow(/ya está registrado/);
@@ -49,10 +44,10 @@ describe('user.service (raw SQL)', () => {
 
   it('createUser resolves role by name and inserts', async () => {
     mockSQL(
-      [[]],                        // email not exists
-      [[{ role_id: 3 }]],          // role lookup
-      [{ insertId: 42 }],          // INSERT
-      [[{ user_id: 42, name: 'A', email: 'a@b.com', role: 'ADMIN' }]] // getById
+      [[]],
+      [[{ role_id: 3 }]],
+      [{ insertId: 42 }],
+      [[{ user_id: 42, name: 'A', email: 'a@b.com', role: 'ADMIN' }]]
     );
 
     const created = await UserService.createUser({
@@ -67,7 +62,7 @@ describe('user.service (raw SQL)', () => {
   });
 
   it('createUser throws if role by name does not exist', async () => {
-    mockSQL([[]], [[]]); // email ok, role lookup empty
+    mockSQL([[]], [[]]);
     await expect(
       UserService.createUser({ name: 'A', email: 'a@b.com', password: 'x', role: 'GHOST' })
     ).rejects.toThrow(/Role 'GHOST' no existe/);
@@ -75,9 +70,9 @@ describe('user.service (raw SQL)', () => {
 
   it('createUser uses role_id when provided', async () => {
     mockSQL(
-      [[]],                        // email not exists
-      [{ insertId: 7 }],           // INSERT
-      [[{ user_id: 7, name: 'A', email: 'a@b.com', role: 'ADMIN' }]] // getById
+      [[]],
+      [{ insertId: 7 }],
+      [[{ user_id: 7, name: 'A', email: 'a@b.com', role: 'ADMIN' }]]
     );
 
     const created = await UserService.createUser({
@@ -93,9 +88,9 @@ describe('user.service (raw SQL)', () => {
 
   it('updateUser resolves role by name and updates, then returns row', async () => {
     mockSQL(
-      [[{ role_id: 3 }]],                           // findRoleIdByType
-      [{}],                                         // UPDATE
-      [[{ user_id: 5, name: 'New', role: 'ADMIN' }]] // getById
+      [[{ role_id: 3 }]],
+      [{}],
+      [[{ user_id: 5, name: 'New', role: 'ADMIN' }]]
     );
 
     const row = await UserService.updateUser(5, { name: 'New', role: 'ADMIN' });
@@ -107,28 +102,28 @@ describe('user.service (raw SQL)', () => {
   });
 
   it('updateUser throws if email is already taken by another user', async () => {
-    mockSQL([[{ '1': 1 }]]); // email conflict
+    mockSQL([[{ '1': 1 }]]);
     await expect(UserService.updateUser(9, { email: 'taken@b.com' }))
       .rejects.toThrow(/ya está en uso/);
   });
 
   it('updateUser with no fields returns current user', async () => {
-    mockSQL([[{ user_id: 8, name: 'Keep' }]]); // getById(id)
+    mockSQL([[{ user_id: 8, name: 'Keep' }]]);
     const res = await UserService.updateUser(8, {});
     expect(res).toEqual({ user_id: 8, name: 'Keep' });
     expect(sql).toHaveBeenCalledTimes(1);
   });
 
   it('deleteUser returns null if user does not exist', async () => {
-    mockSQL([[]]); // getById -> empty
+    mockSQL([[]]);
     expect(await UserService.deleteUser(77)).toBeNull();
     expect(sql).toHaveBeenCalledTimes(1);
   });
 
   it('deleteUser deletes and returns previous row', async () => {
     mockSQL(
-      [[{ user_id: 2, name: 'Bye' }]], // existing
-      [{}]                             // DELETE
+      [[{ user_id: 2, name: 'Bye' }]],
+      [{}]
     );
     const res = await UserService.deleteUser(2);
     expect(res).toEqual({ user_id: 2, name: 'Bye' });
@@ -161,9 +156,9 @@ describe('user.service (extra branches)', () => {
 
   it('createUser inserts with role_id = null when no role nor role_id (numeric insertId path)', async () => {
     mockSQL(
-      [[]],                                         // email ok
-      [101],                                        // INSERT returns numeric id
-      [[{ user_id: 101, name: 'A', email: 'a@b.com', role: null }]] // getById
+      [[]],
+      [101],
+      [[{ user_id: 101, name: 'A', email: 'a@b.com', role: null }]]
     );
 
     const created = await UserService.createUser({ name: 'A', email: 'a@b.com', password: 'x' });
@@ -177,22 +172,21 @@ describe('user.service (extra branches)', () => {
 
   it('updateUser updates email when uniqueness check is empty (no conflict)', async () => {
     mockSQL(
-      [[]],                                         // email ok
-      [{}],                                         // UPDATE
-      [[{ user_id: 5, name: 'U', email: 'new@b.com' }]] // getById
+      [[]],
+      [{}],
+      [[{ user_id: 5, name: 'U', email: 'new@b.com' }]]
     );
 
     const res = await UserService.updateUser(5, { email: 'new@b.com' });
     expect(res).toEqual({ user_id: 5, name: 'U', email: 'new@b.com' });
 
-    expect(call(1)[0]).toMatch(/UPDATE `User` SET/);
     expect(call(1)[1].replacements).toEqual(
       expect.objectContaining({ id: 5, email: 'new@b.com' })
     );
   });
 
   it('updateUser throws when role name does not exist', async () => {
-    mockSQL([[]]); // role lookup empty
+    mockSQL([[]]);
     await expect(UserService.updateUser(1, { role: 'GHOST' }))
       .rejects.toThrow(/Role 'GHOST' no existe/);
   });

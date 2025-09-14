@@ -1,20 +1,16 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-
-vi.mock('../../src/modules/model/cart.model.js', () => ({
-  default: {
-    findAll: vi.fn(),
-    findByPk: vi.fn(),
-    create: vi.fn(),
-    update: vi.fn(),
-    destroy: vi.fn(),
-  },
-}));
-
+import '../mocks/models.mock.js';
+import { Cart } from '../mocks/models.mock.js';
+import { describe, it, expect, beforeEach } from 'vitest';
 import CartService from '../../src/modules/service/cart.service.js';
-import Cart from '../../src/modules/model/cart.model.js';
 
 describe('cart.service', () => {
-  beforeEach(() => vi.clearAllMocks());
+  beforeEach(() => {
+    Cart.findAll.mockReset();
+    Cart.findByPk.mockReset();
+    Cart.create.mockReset();
+    Cart.update.mockReset();
+    Cart.destroy.mockReset();
+  });
 
   it('getCarts() returns list from Cart.findAll', async () => {
     Cart.findAll.mockResolvedValue([{ id: 1, total: 20 }]);
@@ -43,10 +39,8 @@ describe('cart.service', () => {
   });
 
   it('createCart() throws when total is missing', async () => {
-    await expect(() => CartService.createCart({})).toThrow(
-      'Missing required cart field: total'
-    );
-    await expect(() => CartService.createCart({ total: null })).toThrow();
+    expect(() => CartService.createCart({})).toThrow('Missing required cart field: total');
+    expect(() => CartService.createCart({ total: null })).toThrow();
   });
 
   it('createCart() sets user_id to null when not provided', async () => {

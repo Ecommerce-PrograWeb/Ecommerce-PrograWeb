@@ -3,11 +3,11 @@ export default {
     globals: true,
     environment: 'node',
     include: [
-      'tests/**/*.test.js' // Solo incluir nuestros tests específicos
+      'tests/**/*.test.js' // Only include our specific tests
     ],
     exclude: [
-      'tests/routes/**', // Excluir tests de rutas
-      'node_modules/**'  // Excluir node_modules
+      'tests/routes/**', // Exclude route tests
+      'node_modules/**'  // Exclude node_modules
     ],
     transformMode: { web: [/.*/] },
     coverage: {
@@ -17,7 +17,8 @@ export default {
       reports: ['text', 'lcov'],
       include: [
         'src/core/errors/**/*.js',
-        'src/modules/service/**/*.js'
+        'src/modules/service/**/*.js',
+        'src/modules/controller/**/*.js', 
       ],
       exclude: [
         'src/app.js',
@@ -26,7 +27,6 @@ export default {
         'src/config/**',
         'migrations/**',
         'src/modules/model/**',
-        'src/modules/controller/**',
         'src/modules/route/**',
         '**/sequelize-cli-config.js'
       ],
@@ -34,3 +34,5 @@ export default {
     }
   }
 };
+
+
