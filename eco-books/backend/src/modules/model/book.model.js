@@ -46,7 +46,7 @@ const Book = sequelize.define('Book', {
   timestamps: false
 });
 
-// Relation: A book belongs to an author
+// Relation: A book belongs to an author and category
 Book.belongsTo(Author, { foreignKey: 'author_id', as: 'author' });
 Book.belongsTo(Category, { foreignKey: 'category_id', as: 'category' });
 
