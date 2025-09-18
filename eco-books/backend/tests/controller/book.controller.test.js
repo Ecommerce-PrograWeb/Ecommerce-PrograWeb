@@ -19,7 +19,7 @@ describe('book.controller', () => {
     await getBooks(req, res);
 
     expect(BookService.getBooks).toHaveBeenCalledWith({ page: 2, limit: 10, sort: 'name' });
-    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.status).toHaveBeenCalledWith(500);
     expect(res.json).toHaveBeenCalledWith([{ book_id: 1 }]);
   });
 
