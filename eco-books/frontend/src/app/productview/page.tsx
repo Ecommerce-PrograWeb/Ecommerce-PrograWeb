@@ -66,6 +66,30 @@ function ProductContent() {
     setQuantity(Math.max(1, quantity + delta));
   };
 
+  // Add item to cart in localStorage
+  const addToCart = (bookToAdd: Book, qty: number) => {
+    try {
+      const raw = localStorage.getItem('cart');
+      const current = raw ? JSON.parse(raw) : [];
+      const existingIndex = current.findIndex((i: any) => i.book_id === bookToAdd.book_id);
+      if (existingIndex > -1) {
+        current[existingIndex].quantity = Math.max(1, current[existingIndex].quantity + qty);
+      } else {
+        current.push({
+          book_id: bookToAdd.book_id,
+          name: bookToAdd.name,
+          cover: bookToAdd.cover,
+          purchase_price: bookToAdd.purchase_price,
+          quantity: qty,
+        });
+      }
+      localStorage.setItem('cart', JSON.stringify(current));
+      console.log('Añadido al carrito', bookToAdd.name);
+    } catch (e) {
+      console.error('Error al actualizar carrito', e);
+    }
+  };
+
   // Loading and error states
   if (loading) {
     return (
@@ -149,8 +173,18 @@ function ProductContent() {
           </div>
 
           <div className={styles.actions}>
-            <button className={styles.primary}>Pedir Ahora</button>
-            <button className={styles.ghost}>Agregar al carrito</button>
+            <button
+              className={styles.primary}
+              onClick={() => { addToCart(book, quantity); window.location.href = '/cart'; }}
+            >
+              Pedir Ahora
+            </button>
+            <button
+              className={styles.ghost}
+              onClick={() => addToCart(book, quantity)}
+            >
+              Agregar al carrito
+            </button>
           </div>
         </div>
       </section>

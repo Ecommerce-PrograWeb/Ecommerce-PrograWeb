@@ -26,12 +26,14 @@ export default function Header() {
         </ul>
 
         <div className="nav-icons">
-          <button className="icon-user" aria-label="User">
+          <Link href="/login" aria-label="User" className="icon-user">
             <span className="symbols">person</span>
-          </button>
-          <button className="icon-cart" aria-label="Cart">
-            <span className="symbols">shopping_cart</span>
-          </button>
+          </Link>
+          <Link href="/cart" aria-label="Cart">
+            <button className="icon-cart">
+              <span className="symbols">shopping_cart</span>
+            </button>
+          </Link>
           <button className="icon-menu" aria-label="Menu">
             <span className="symbols">menu</span>
           </button>
