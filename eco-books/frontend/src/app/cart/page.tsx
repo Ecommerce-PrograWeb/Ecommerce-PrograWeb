@@ -1,10 +1,12 @@
+// app/cart/page.tsx (o donde tengas CartPage)
 "use client";
 
-import { useEffect, useState } from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import styles from './cart.module.css';
-import Image from 'next/image';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import styles from "./cart.module.css";
+import Image from "next/image";
 
 interface CartItem {
   book_id: number;
@@ -15,39 +17,53 @@ interface CartItem {
 }
 
 export default function CartPage() {
+  const router = useRouter();
   const [items, setItems] = useState<CartItem[]>([]);
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem('cart');
+      const raw = localStorage.getItem("cart");
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed)) setItems(parsed);
       }
     } catch (e) {
-      console.error('Error reading cart from localStorage', e);
+      console.error("Error reading cart from localStorage", e);
       setItems([]);
     }
   }, []);
 
   useEffect(() => {
     try {
-      localStorage.setItem('cart', JSON.stringify(items));
+      localStorage.setItem("cart", JSON.stringify(items));
     } catch (e) {
-      console.error('Error saving cart to localStorage', e);
+      console.error("Error saving cart to localStorage", e);
     }
   }, [items]);
 
   const changeQty = (book_id: number, delta: number) => {
-    setItems((prev) => prev.map(i => i.book_id === book_id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i));
+    setItems((prev) =>
+      prev.map((i) =>
+        i.book_id === book_id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i
+      )
+    );
   };
 
   const removeItem = (book_id: number) => {
-    setItems((prev) => prev.filter(i => i.book_id !== book_id));
+    setItems((prev) => prev.filter((i) => i.book_id !== book_id));
   };
 
-  // subtotal: sum of (price * quantity) for all books
   const subtotal = items.reduce((s, it) => s + it.purchase_price * it.quantity, 0);
+
+  const handleCheckout = () => {
+    if (items.length === 0) return;
+    // simple order number based on timestamp
+    const orderNumber = Date.now().toString().slice(-6);
+    // optional: clear cart, then navigate
+    localStorage.setItem("cart", JSON.stringify([]));
+    setItems([]);
+    router.push(`/thankyou?order=${orderNumber}`);
+  };
 
   return (
     <>
@@ -62,11 +78,16 @@ export default function CartPage() {
         ) : (
           <section className={styles.list}>
             <div className={styles.items}>
-              {items.map(item => (
+              {items.map((item) => (
                 <article key={item.book_id} className={styles.card}>
                   <div className={styles.media}>
                     {item.cover ? (
-                      <Image src={`/Images/BookCovers/${item.cover}`} alt={item.name} width={120} height={160} />
+                      <Image
+                        src={`/Images/BookCovers/${item.cover}`}
+                        alt={item.name}
+                        width={120}
+                        height={160}
+                      />
                     ) : (
                       <div className={styles.placeholder} />
                     )}
@@ -76,10 +97,16 @@ export default function CartPage() {
                     <h2 className={styles.name}>{item.name}</h2>
                     <p className={styles.price}>Q{Number(item.purchase_price).toFixed(2)}</p>
                     <div className={styles.controls}>
-                      <button onClick={() => changeQty(item.book_id, -1)} className={styles.qtyBtn}>−</button>
+                      <button onClick={() => changeQty(item.book_id, -1)} className={styles.qtyBtn}>
+                        −
+                      </button>
                       <span className={styles.qty}>{item.quantity}</span>
-                      <button onClick={() => changeQty(item.book_id, 1)} className={styles.qtyBtn}>+</button>
-                      <button onClick={() => removeItem(item.book_id)} className={styles.remove}>Eliminar</button>
+                      <button onClick={() => changeQty(item.book_id, 1)} className={styles.qtyBtn}>
+                        +
+                      </button>
+                      <button onClick={() => removeItem(item.book_id)} className={styles.remove}>
+                        Eliminar
+                      </button>
                     </div>
                   </div>
                 </article>
@@ -88,9 +115,17 @@ export default function CartPage() {
 
             <aside className={styles.summary}>
               <h3>Resumen</h3>
-              <div className={styles.row}><span>Items:</span><span>{items.length}</span></div>
-              <div className={styles.row}><strong>Total libros:</strong><strong>Q{subtotal.toFixed(2)}</strong></div>
-              <button className={styles.checkout}>Pedir Ahora</button>
+              <div className={styles.row}>
+                <span>Items:</span>
+                <span>{items.length}</span>
+              </div>
+              <div className={styles.row}>
+                <strong>Total libros:</strong>
+                <strong>Q{subtotal.toFixed(2)}</strong>
+              </div>
+              <button className={styles.checkout} onClick={handleCheckout}>
+                Pedir Ahora
+              </button>
             </aside>
           </section>
         )}
