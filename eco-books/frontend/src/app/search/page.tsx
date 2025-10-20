@@ -9,6 +9,14 @@ import Footer from "../components/Footer";
 
 type Book = { id: number; title: string; cover: string; price: number };
 
+type CartItem = {
+  book_id: number;
+  name: string;
+  cover?: string;
+  purchase_price: number;
+  quantity: number;
+};
+
 export default function SearchPage() {
   const router = useRouter();
 
@@ -29,7 +37,11 @@ export default function SearchPage() {
   const toggle = (id: number) => {
     setSelected((prev) => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
       return next;
     });
   };
@@ -41,17 +53,17 @@ export default function SearchPage() {
 
     const selectedBooks = books.filter((b) => selected.has(b.id));
 
-    let current: any[] = [];
+    let current: CartItem[] = [];
     try {
       const raw = localStorage.getItem("cart");
       if (raw) {
-        const parsed = JSON.parse(raw);
+        const parsed = JSON.parse(raw) as CartItem[];
         if (Array.isArray(parsed)) current = parsed;
       }
     } catch {}
 
     for (const b of selectedBooks) {
-      const idx = current.findIndex((x) => x.book_id === b.id);
+      const idx = current.findIndex((x: CartItem) => x.book_id === b.id);
       if (idx >= 0) {
         current[idx].quantity = Number(current[idx].quantity || 0) + 1;
       } else {
@@ -98,12 +110,12 @@ export default function SearchPage() {
           {books.map((b) => {
             const isSel = selected.has(b.id);
             const src = `/Images/BookCovers/${encodeURI(b.cover)}`;
-            return (
+              return (
               <button
                 key={b.id}
                 className={`srch-card ${isSel ? "is-selected" : ""}`}
                 onClick={() => toggle(b.id)}
-                aria-pressed={isSel}
+                aria-selected={isSel}
                 role="listitem"
                 title={b.title}
               >
