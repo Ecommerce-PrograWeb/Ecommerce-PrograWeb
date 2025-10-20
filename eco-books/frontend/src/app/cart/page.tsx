@@ -46,7 +46,8 @@ export default function CartPage() {
     setItems((prev) => prev.filter(i => i.book_id !== book_id));
   };
 
-  const total = items.reduce((s, it) => s + it.purchase_price * it.quantity, 0);
+  // subtotal: sum of (price * quantity) for all books
+  const subtotal = items.reduce((s, it) => s + it.purchase_price * it.quantity, 0);
 
   return (
     <>
@@ -88,7 +89,7 @@ export default function CartPage() {
             <aside className={styles.summary}>
               <h3>Resumen</h3>
               <div className={styles.row}><span>Items:</span><span>{items.length}</span></div>
-              <div className={styles.row}><strong>Total:</strong><strong>Q{total.toFixed(2)}</strong></div>
+              <div className={styles.row}><strong>Total libros:</strong><strong>Q{subtotal.toFixed(2)}</strong></div>
               <button className={styles.checkout}>Pedir Ahora</button>
             </aside>
           </section>
