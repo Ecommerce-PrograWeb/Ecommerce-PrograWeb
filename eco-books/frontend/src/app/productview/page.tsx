@@ -25,6 +25,15 @@ interface Book {
   };
 }
 
+// Minimal cart item type used for localStorage operations
+interface CartItem {
+  book_id: number;
+  name: string;
+  cover?: string;
+  purchase_price: number;
+  quantity: number;
+}
+
 // Component that uses useSearchParams
 function ProductContent() {
   const searchParams = useSearchParams();
@@ -70,8 +79,8 @@ function ProductContent() {
   const addToCart = (bookToAdd: Book, qty: number) => {
     try {
       const raw = localStorage.getItem('cart');
-      const current = raw ? JSON.parse(raw) : [];
-      const existingIndex = current.findIndex((i: any) => i.book_id === bookToAdd.book_id);
+      const current: CartItem[] = raw ? (JSON.parse(raw) as CartItem[]) : [];
+      const existingIndex = current.findIndex((i: CartItem) => i.book_id === bookToAdd.book_id);
       if (existingIndex > -1) {
         current[existingIndex].quantity = Math.max(1, current[existingIndex].quantity + qty);
       } else {

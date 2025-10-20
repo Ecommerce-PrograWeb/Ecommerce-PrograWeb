@@ -1,0 +1,33 @@
+name: Backend Tests
+
+on:
+  push:
+    branches: [ Tests, CI/CD-testing, main ]
+  pull_request:
+    branches: [ Tests, CI/CD-testing, main ]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: eco-books/backend/package-lock.json
+
+    - name: Install Backend Dependencies
+      working-directory: eco-books/backend
+      run: npm ci
+
+    - name: Run Backend Tests
+      working-directory: eco-books/backend
+      run: npm run test:all
+
+    - name: Verify Vitest Installation
+      working-directory: eco-books/backend
+      run: npx vitest --version

@@ -1,0 +1,31 @@
+name: Frontend Build & Tests
+
+on:
+  push:
+    branches: [ Tests, CI/CD-testing, main ]
+  pull_request:
+    branches: [ Tests, CI/CD-testing, main ]
+
+jobs:
+  frontend-build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+        cache-dependency-path: eco-books/frontend/package-lock.json
+
+    - name: Install Frontend Dependencies
+      working-directory: eco-books/frontend
+      run: npm ci
+
+    - name: Build Frontend
+      working-directory: eco-books/frontend
+      run: npm run build
+
+    # Frontend tests disabled here as none exist yet; add `npm run test` when available
