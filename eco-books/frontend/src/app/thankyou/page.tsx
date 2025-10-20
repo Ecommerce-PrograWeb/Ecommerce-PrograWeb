@@ -35,7 +35,7 @@ export default function ThankYouPage() {
               <Link href={`/orders/${orderNumber}`} className="ty-btn ty-btn--primary">
                 Ver pedido
               </Link>
-              <Link href="/" className="ty-btn ty-btn--ghost">
+              <Link href="/search" className="ty-btn ty-btn--ghost">
                 Seguir comprando
               </Link>
             </div>
