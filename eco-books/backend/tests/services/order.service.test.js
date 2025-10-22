@@ -72,7 +72,8 @@ describe('order.service', () => {
     Order.findByPk.mockResolvedValue({ id: 7, total: 100 });
     const r = await OrderService.getOrderById(7);
     expect(r).toEqual({ id: 7, total: 100 });
-    expect(Order.findByPk).toHaveBeenCalledWith(7);
+    expect(Order.findByPk).toHaveBeenCalled();
+    expect(Order.findByPk.mock.calls[0][0]).toBe(7);
   });
 
   it('getOrderById(): retorna null cuando no existe', async () => {
