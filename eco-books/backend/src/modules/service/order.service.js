@@ -5,6 +5,15 @@ import Cart from '../model/cart.model.js';
 import Address from '../model/address.model.js';
 import User from '../model/user.model.js';
 
+// Setup associations if not already set
+if (!Order.associations || !Order.associations.orderDetail) {
+  Order.belongsTo(OrderDetail, { foreignKey: 'order_detail_id', as: 'orderDetail' });
+  Order.belongsTo(Cart, { foreignKey: 'cart_id', as: 'cart' });
+  Order.belongsTo(Address, { foreignKey: 'address_id', as: 'address' });
+  Order.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+  OrderDetail.belongsTo(Book, { foreignKey: 'book_id', as: 'book' });
+}
+
 const OrderService = {
   // List with filters/sort and optionally pagination
   async getOrders({ page, limit, status, sort = '-date' }) {
