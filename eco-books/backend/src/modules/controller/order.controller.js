@@ -15,6 +15,22 @@ export async function getOrders(req, res) {
   }
 }
 
+// GET /orders/user/:userId - Get orders by user ID (order history)
+export async function getOrdersByUserId(req, res) {
+  try {
+    const { userId } = req.params;
+    const page  = req.query.page  ? Number(req.query.page)  : undefined;
+    const limit = req.query.limit ? Number(req.query.limit) : undefined;
+    const { sort } = req.query;
+
+    const orders = await OrderService.getOrdersByUserId(userId, { page, limit, sort });
+    return res.status(200).json(orders);
+  } catch (err) {
+    console.error('GET /orders/user/:userId error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // GET /orders/:id
 export async function getOrderById(req, res) {
   try {

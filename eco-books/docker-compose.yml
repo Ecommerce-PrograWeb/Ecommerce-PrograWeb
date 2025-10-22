@@ -34,6 +34,7 @@ services:
       - db
     volumes:
       - ./backend:/app
+      - /app/node_modules
     command: sh -c "sleep 10 && npm start"
     networks:
       - app-network

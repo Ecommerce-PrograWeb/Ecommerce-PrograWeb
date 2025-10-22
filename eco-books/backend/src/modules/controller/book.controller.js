@@ -15,6 +15,21 @@ export async function getBooks(req, res) {
   }
 }
 
+// GET /books/search?q=query
+export async function searchBooks(req, res) {
+  try {
+    const page  = req.query.page  ? Number(req.query.page)  : undefined;
+    const limit = req.query.limit ? Number(req.query.limit) : undefined;
+    const { q: query, sort } = req.query;
+
+    const result = await BookService.searchBooks({ query, page, limit, sort });
+    return res.status(200).json(result);
+  } catch (err) {
+    console.error('GET /books/search error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // GET /books/:id
 export async function getBookById(req, res) {
   try {

@@ -1,0 +1,176 @@
+/* app/history/history.css */
+
+:root {
+  --container: 1200px;
+  --border: #e5e7eb;
+  --radius: 14px;
+  --muted: #6b7280;
+  --fg: #111318;
+  --primary: #0b0b0c;
+}
+
+.hst {
+  padding: 40px 16px 80px;
+  background: #fff;
+  color: var(--fg);
+}
+
+.hst-head {
+  max-width: var(--container);
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.hst-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--fg);
+  margin: 0 0 8px;
+}
+
+.hst-sub {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.hst-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+/* Each order card */
+.hst-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  display: grid;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.hst-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Top section: order number + status */
+.hst-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hst-order {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.hst-status {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  background: #f3f4f6;
+}
+
+.hst-status.completed {
+  color: #0b9444;
+  background: #dcfce7;
+}
+
+.hst-status.canceled {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+/* Date + time */
+.hst-info {
+  display: flex;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Items list */
+.hst-items {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.hst-item {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  font-size: 14px;
+  color: var(--fg);
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+}
+
+.hst-name {
+  font-weight: 600;
+}
+
+.hst-price {
+  color: var(--muted);
+}
+
+/* Action buttons */
+.hst-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.hst-btn {
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hst-btn--primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+.hst-btn--primary:hover {
+  filter: brightness(1.05);
+}
+
+.hst-btn:hover {
+  border-color: #cfd2d7;
+}
+
+/* Cards use only a stronger border to stand out */
+.hst { background: #ffffff; }
+
+.hst-card {
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  box-shadow: none;
+  transition: border-color .18s ease, transform .12s ease;
+}
+
+.hst-card:hover {
+  transform: translateY(-1px);
+  border-color: #cfd2d7;
+}

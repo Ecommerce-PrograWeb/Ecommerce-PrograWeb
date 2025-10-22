@@ -3,6 +3,7 @@ import {
   getBooks,
   getBookById,
   getBookByCategory,
+  searchBooks,
   createBook,
   patchBook,
   putBook,
@@ -11,6 +12,7 @@ import {
 
 const router = Router();
 
+router.get('/search', searchBooks);
 router.get('/', getBooks);
 router.get('/:id', getBookById);
 router.get('/category/:categoryId', getBookByCategory);
