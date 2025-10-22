@@ -5,10 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="fix: ensure newline at end of file in cart.model.js">
+      <change afterPath="$PROJECT_DIR$/eco-books/frontend/setupTests.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eco-books/frontend/tests/sanity.test.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eco-books/frontend/vitest.config.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/productview.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/productview.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/src/app/productview/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/postcss.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/postcss.config.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,14 +72,15 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Tests&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Test&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/susan/Desktop/Progra Web/Ecommerce-PrograWeb&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\susan\\WebstormProjects\\Ecommerce-PrograWeb\\eco-books\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\susan\\Desktop\\Progra Web\\Ecommerce-PrograWeb\\eco-books\\frontend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -110,6 +117,7 @@
       <workItem from="1757358796921" duration="7592000" />
       <workItem from="1757383942297" duration="717000" />
       <workItem from="1757432558724" duration="6079000" />
+      <workItem from="1761166088195" duration="2889000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement cart functionality with controller, model, service, and routes">
       <option name="closed" value="true" />
