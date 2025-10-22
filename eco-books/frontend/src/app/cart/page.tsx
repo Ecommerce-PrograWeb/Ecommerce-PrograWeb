@@ -19,27 +19,43 @@ interface CartItem {
 export default function CartPage() {
   const router = useRouter();
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
+  // Load cart from localStorage on mount
   useEffect(() => {
+    console.log("🛒 CartPage: useEffect ejecutándose para cargar carrito");
     try {
       const raw = localStorage.getItem("cart");
+      console.log("🛒 CartPage: localStorage.getItem('cart') =", raw);
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) setItems(parsed);
+        console.log("🛒 CartPage: parsed =", parsed);
+        console.log("🛒 CartPage: Array.isArray(parsed) =", Array.isArray(parsed));
+        if (Array.isArray(parsed)) {
+          console.log("🛒 CartPage: Seteando items con", parsed.length, "elementos");
+          setItems(parsed);
+        }
+      } else {
+        console.log("🛒 CartPage: No hay datos en localStorage");
       }
     } catch (e) {
-      console.error("Error reading cart from localStorage", e);
+      console.error("❌ CartPage: Error reading cart from localStorage", e);
       setItems([]);
     }
+    setIsLoaded(true);
   }, []);
 
+  // Save cart to localStorage only after initial load and when items change
   useEffect(() => {
-    try {
-      localStorage.setItem("cart", JSON.stringify(items));
-    } catch (e) {
-      console.error("Error saving cart to localStorage", e);
+    if (isLoaded) {
+      console.log("💾 CartPage: Guardando items en localStorage:", items);
+      try {
+        localStorage.setItem("cart", JSON.stringify(items));
+      } catch (e) {
+        console.error("Error saving cart to localStorage", e);
+      }
     }
-  }, [items]);
+  }, [items, isLoaded]);
 
   const changeQty = (book_id: number, delta: number) => {
     setItems((prev) =>
