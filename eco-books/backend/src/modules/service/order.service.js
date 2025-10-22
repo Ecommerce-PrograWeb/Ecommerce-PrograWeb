@@ -1,4 +1,9 @@
 import Order from '../model/order.model.js';
+import OrderDetail from '../model/order-detail.model.js';
+import Book from '../model/book.model.js';
+import Cart from '../model/cart.model.js';
+import Address from '../model/address.model.js';
+import User from '../model/user.model.js';
 
 const OrderService = {
   // List with filters/sort and optionally pagination
@@ -12,6 +17,22 @@ const OrderService = {
     const options = {
       where,
       order: [[orderField, orderBy]],
+      include: [
+        { 
+          model: OrderDetail, 
+          as: 'orderDetail',
+          include: [
+            {
+              model: Book,
+              as: 'book',
+              attributes: ['book_id', 'name', 'purchase_price']
+            }
+          ]
+        },
+        { model: Cart, as: 'cart', attributes: ['cart_id', 'total'] },
+        { model: Address, as: 'address', attributes: ['address_id', 'city', 'zone', 'name'] },
+        { model: User, as: 'user', attributes: ['user_id', 'name', 'email'] }
+      ]
     };
 
     // Only apply pagination if page and limit are sent
@@ -24,8 +45,59 @@ const OrderService = {
     return Order.findAll(options);
   },
 
+  // Get orders by user ID (for order history)
+  async getOrdersByUserId(userId, { page, limit, sort = '-date' }) {
+    const orderBy = sort.startsWith('-') ? 'DESC' : 'ASC';
+    const orderField = sort.replace('-', '') || 'date';
+
+    const options = {
+      where: { user_id: userId },
+      order: [[orderField, orderBy]],
+      include: [
+        { 
+          model: OrderDetail, 
+          as: 'orderDetail',
+          include: [
+            {
+              model: Book,
+              as: 'book',
+              attributes: ['book_id', 'name', 'purchase_price']
+            }
+          ]
+        },
+        { model: Cart, as: 'cart', attributes: ['cart_id', 'total'] },
+        { model: Address, as: 'address', attributes: ['address_id', 'city', 'zone', 'name'] }
+      ]
+    };
+
+    if (page && limit) {
+      const offset = (page - 1) * limit;
+      options.limit = +limit;
+      options.offset = offset;
+    }
+
+    return Order.findAll(options);
+  },
+
   // Search by ID
-  getOrderById: (id) => Order.findByPk(id),
+  getOrderById: (id) => Order.findByPk(id, {
+    include: [
+      { 
+        model: OrderDetail, 
+        as: 'orderDetail',
+        include: [
+          {
+            model: Book,
+            as: 'book',
+            attributes: ['book_id', 'name', 'purchase_price']
+          }
+        ]
+      },
+      { model: Cart, as: 'cart', attributes: ['cart_id', 'total'] },
+      { model: Address, as: 'address', attributes: ['address_id', 'city', 'zone', 'name'] },
+      { model: User, as: 'user', attributes: ['user_id', 'name', 'email'] }
+    ]
+  }),
 
   // Create new order
   createOrder: (data) => Order.create(data),

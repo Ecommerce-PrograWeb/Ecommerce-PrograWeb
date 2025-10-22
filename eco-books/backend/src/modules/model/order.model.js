@@ -36,4 +36,16 @@ const Order = sequelize.define('Order', {
   timestamps: false
 });
 
+// Import related models for associations
+import OrderDetail from './order-detail.model.js';
+import Cart from './cart.model.js';
+import Address from './address.model.js';
+import User from './user.model.js';
+
+// Define associations
+Order.belongsTo(OrderDetail, { foreignKey: 'order_detail_id', as: 'orderDetail' });
+Order.belongsTo(Cart, { foreignKey: 'cart_id', as: 'cart' });
+Order.belongsTo(Address, { foreignKey: 'address_id', as: 'address' });
+Order.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+
 export default Order;

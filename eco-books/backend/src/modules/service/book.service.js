@@ -1,6 +1,7 @@
 import Book from '../model/book.model.js';
 import Author from '../model/author.model.js';
-import Category from '../model/category.model.js'; 
+import Category from '../model/category.model.js';
+import { Op } from 'sequelize';
 
 const BookService = {
   // List with optional filters and pagination
@@ -13,6 +14,46 @@ const BookService = {
       include: [
         { model: Author, as: 'author', attributes: ['name'] },
         { model: Category, as: 'category', attributes: ['name'] }
+      ]
+    };
+
+    if (page && limit) {
+      const offset = (page - 1) * limit;
+      options.limit = +limit;
+      options.offset = offset;
+    }
+
+    return Book.findAll(options);
+  },
+
+  // Search books by title, author, or category
+  async searchBooks({ query, page, limit, sort = '-publication_date' }) {
+    const orderBy = sort.startsWith('-') ? 'DESC' : 'ASC';
+    const orderField = sort.replace('-', '') || 'publication_date';
+
+    const where = {};
+    if (query) {
+      where.name = { [Op.like]: `%${query}%` };
+    }
+
+    const options = {
+      where,
+      order: [[orderField, orderBy]],
+      include: [
+        { 
+          model: Author, 
+          as: 'author', 
+          attributes: ['name'],
+          where: query ? { name: { [Op.like]: `%${query}%` } } : undefined,
+          required: false
+        },
+        { 
+          model: Category, 
+          as: 'category', 
+          attributes: ['name'],
+          where: query ? { name: { [Op.like]: `%${query}%` } } : undefined,
+          required: false
+        }
       ]
     };
 
