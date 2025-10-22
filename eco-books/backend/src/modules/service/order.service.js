@@ -1,4 +1,5 @@
 import Order from '../model/order.model.js';
+import CartService from './cart.service.js'; //  el cart service para traer items
 
 const OrderService = {
   // List with filters/sort and optionally pagination
@@ -36,8 +37,41 @@ const OrderService = {
     return affected; 
   },
 
-// Delete order
+  // Delete order
   deleteOrder: (id) => Order.destroy({ where: { order_id: id } }),
+
+  // Returns user orders with their items (via CartService)
+  async getOrdersByUser(userId) {
+    // 1) Bring the user's orders
+    const orders = await Order.findAll({
+      where: { user_id: userId },
+      order: [['date', 'DESC']],
+    });
+
+    // 2) For each order, bring the items from the associated cart
+    const withItems = await Promise.all(
+      orders.map(async (o) => {
+        const cartId = o.cart_id;
+        // Debes implementar getItemsByCartId en cart.service.js si no existe
+        const items = await CartService.getItemsByCartId(cartId);
+
+        // [{ title, unit_price, quantity }]
+        const normItems = (items ?? []).map(it => ({
+          title: it.title ?? it.book?.name ?? it.name,
+          unit_price: it.unit_price ?? it.price ?? it.purchase_price ?? 0,
+          quantity: it.quantity ?? it.qty ?? 1,
+        }));
+
+        return {
+          id: o.order_id ?? o.id,
+          date: o.date ?? o.createdAt,
+          items: normItems,
+        };
+      })
+    );
+
+    return withItems;
+  },
 };
 
 export default OrderService;

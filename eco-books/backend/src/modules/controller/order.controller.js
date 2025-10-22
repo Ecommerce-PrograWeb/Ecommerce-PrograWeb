@@ -135,3 +135,28 @@ export async function deleteOrder(req, res) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+// NUEVO: GET /orders/my
+export async function getMyOrders(req, res) {
+  try {
+    const userId = req.user.sub;                      // viene del JWT
+    const orders = await OrderService.getOrdersByUser(userId);
+
+    // Normaliza al formato pedido: artículo, precio, cantidad, fecha
+    const out = orders.flatMap(o =>
+      (o.items ?? []).map(it => ({
+        id: o.order_id ?? o.id,
+        articulo: it.title ?? it.book_title ?? it.name ?? 'N/A',
+        precio: it.unit_price ?? it.price ?? 0,
+        cantidad: it.quantity ?? 1,
+        fecha: (o.date ?? o.createdAt ?? o.paidAt ?? new Date()).toISOString().slice(0,10),
+      }))
+    );
+
+    return res.status(200).json(out);
+  } catch (err) {
+    console.error('GET /orders/my error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
