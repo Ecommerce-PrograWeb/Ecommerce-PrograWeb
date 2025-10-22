@@ -10,7 +10,7 @@ const router = Router();
 router.use("/health", health);
 router.use("/auth", authRoutes); 
 router.use("/book", bookRoutes);
-router.use("/user", userRoutes);
+router.use("/users", userRoutes);
 router.use("/order", orderRoutes);
 router.use("/cart", cartRoutes);
 
