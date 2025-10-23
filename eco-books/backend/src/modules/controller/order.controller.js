@@ -151,3 +151,20 @@ export async function deleteOrder(req, res) {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+// GET /orders/history (usuario autenticado)
+// Devuelve: articulo, precio, cantidad, fecha
+export async function historyForUser(req, res) {
+  try {
+    const userId = req.user.user_id;
+
+    // Llama al servicio (lo creamos abajo)
+    const items = await OrderService.getHistoryForUser(userId);
+
+    return res.status(200).json({ items });
+  } catch (err) {
+    console.error("GET /orders/history error:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
