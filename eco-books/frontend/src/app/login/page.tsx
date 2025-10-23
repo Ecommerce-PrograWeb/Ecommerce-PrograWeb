@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams} from 'next/navigation';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -12,8 +12,7 @@ type LoginResponse = {
   user: { user_id: number; name: string; email: string; role?: string };
 };
 
-
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const search = useSearchParams();
   const next = search.get("next") || "/home";
@@ -103,5 +102,13 @@ export default function LoginPage() {
       </main>
       <Footer />
     </>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }
