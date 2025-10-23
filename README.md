@@ -116,13 +116,3 @@ npm run test:routes
 cd eco-books/frontend
 npm run test
 ```
-
-## Contributing
-
-1. Create a branch for your feature/fix.
-2. Run unit and integration tests before opening a PR.
-3. Keep changes scoped — frontend-only changes should not trigger backend CI and vice versa; workflows are path-filtered.
-
----
-
-If you want, puedo añadir pasos rápidos para configurar un entorno con Docker Compose y un archivo `.env` de ejemplo para la base de datos. ¿Te gustaría que lo añada? 
