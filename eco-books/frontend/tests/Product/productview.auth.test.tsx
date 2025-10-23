@@ -143,6 +143,7 @@ describe("ProductViewPage - Navegación del botón 'Pedir Ahora'", () => {
         localStorage.clear();
     });
 
+
     afterAll(() => vi.restoreAllMocks());
 
     // Smoke: navega a algún lugar (sin importar destino)
@@ -179,6 +180,7 @@ describe("ProductViewPage - Navegación del botón 'Pedir Ahora'", () => {
             expect(wentToLoginNextCart()).toBe(false);  // NO /login?next=/cart
         });
     });
+
 
     test("🔒 Si NO está loggeado y pulsa 'Pedir Ahora' termina en /login?next=/cart", async () => {
         render(<ProductViewPage />);

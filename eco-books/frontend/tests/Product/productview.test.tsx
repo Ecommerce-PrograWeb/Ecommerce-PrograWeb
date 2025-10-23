@@ -15,6 +15,7 @@ vi.mock("next/image", () => ({
         React.createElement("img", props),
 }));
 
+
 // Header/Footer mínimos
 vi.mock("@/app/components/Header", () => ({ default: () => <div /> }));
 vi.mock("@/app/components/Footer", () => ({ default: () => <div /> }));
