@@ -3,8 +3,12 @@ name: Frontend Build & Tests
 on:
   push:
     branches: [ Tests, CI/CD-testing, main ]
+    paths:
+      - 'eco-books/frontend/**'
   pull_request:
     branches: [ Tests, CI/CD-testing, main ]
+    paths:
+      - 'eco-books/frontend/**'
 
 jobs:
   frontend-build:
