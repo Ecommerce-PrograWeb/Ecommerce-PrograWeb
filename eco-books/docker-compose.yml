@@ -1,4 +1,4 @@
-# puedes quitar la línea "version:" si quieres (es obsoleta)
+# docker-compose.yml
 
 services:
   db:
@@ -7,7 +7,7 @@ services:
       MYSQL_ROOT_PASSWORD: MySQL
       MYSQL_DATABASE: eco_books
     ports:
-      - "3307:3306"
+      - "3307:3306"             # MySQL accesible desde tu host en 3307
     volumes:
       - db_data:/var/lib/mysql
       - ./backend/migrations/01-user.sql:/docker-entrypoint-initdb.d/01-user.sql
@@ -16,26 +16,38 @@ services:
       - ./backend/migrations/04-order.sql:/docker-entrypoint-initdb.d/04-order.sql
       - ./backend/migrations/05-payment.sql:/docker-entrypoint-initdb.d/05-payment.sql
       - ./backend/migrations/inserts.sql:/docker-entrypoint-initdb.d/inserts.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pMySQL"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
     networks:
-          - app-network
+      - app-network
 
   backend:
     build: ./backend
     ports:
-      - "3000:3000"
+      - "3000:3000"             # Backend en http://localhost:3000
     environment:
+      # DB
       DB_HOST: db
       DB_PORT: 3306
       DB_NAME: eco_books
       DB_USER: root
       DB_PASS: MySQL
       APP_PORT: 3000
+      # Seguridad / CORS
+      FRONTEND_URL: http://localhost:3001
+      JWT_SECRET: cambialo_por_un_secreto_largo
+      JWT_EXPIRES: 1h
+      NODE_ENV: development
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - ./backend:/app
       - /app/node_modules
-    command: sh -c "sleep 10 && npm start"
+    command: sh -c "npm start"
     networks:
       - app-network
 
@@ -44,9 +56,10 @@ services:
     working_dir: /app
     command: npm run dev
     ports:
-      - "3001:3000"
+      - "3001:3000"             # Frontend en http://localhost:3001
     environment:
       - NODE_ENV=development
+      - NEXT_PUBLIC_API=http://localhost:3000   # URL que usa el navegador para llamar al backend
     depends_on:
       - backend
     volumes:
@@ -55,7 +68,7 @@ services:
       - /app/.next
     networks:
       - app-network
-      
+
 networks:
   app-network:
     driver: bridge

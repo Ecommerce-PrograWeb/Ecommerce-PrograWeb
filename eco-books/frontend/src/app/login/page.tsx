@@ -1,18 +1,29 @@
 "use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams} from 'next/navigation';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styles from './login.module.css';
+import { getApiBase, jsonFetch } from "../lib/api";
+
+type LoginResponse = {
+  message: string;
+  user: { user_id: number; name: string; email: string; role?: string };
+};
+
 
 export default function LoginPage() {
   const router = useRouter();
+  const search = useSearchParams();
+  const next = search.get("next") || "/home";
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -21,15 +32,25 @@ export default function LoginPage() {
       setError('Por favor ingresa correo y contraseña');
       return;
     }
-    if (email.indexOf('@') === -1 || email.indexOf('.') === -1) {
-      setError('Por favor ingresa un correo válido');
-      return;
+    try {
+      setLoading(true);
+      const API = getApiBase();
+      const data = await jsonFetch<LoginResponse>(`${API}/users/auth/login`, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+
+      localStorage.setItem("user_id", String(data.user.user_id));
+      localStorage.setItem("user_name", data.user.name);
+      localStorage.setItem("user_email", data.user.email);
+
+      router.push(next);
+    } catch (err: any) {
+      setError(err?.message || "Error al iniciar sesión");
+    } finally {
+      setLoading(false);
     }
-
-    // For now just navigate to home to simulate successful login
-    router.push('/');
   };
-
   return (
     <>
       <Header />

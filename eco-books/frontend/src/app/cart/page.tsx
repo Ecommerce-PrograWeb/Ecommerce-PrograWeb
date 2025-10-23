@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import styles from "./cart.module.css";
 import Image from "next/image";
+import { getApiBase, jsonFetch } from "../lib/api";
 
 interface CartItem {
   book_id: number;
@@ -20,6 +21,27 @@ export default function CartPage() {
   const router = useRouter();
   const [items, setItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
+
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("user_id"));
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "user_id") setIsLoggedIn(!!localStorage.getItem("user_id"));
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  useEffect(() => {
+  const hasUser = !!localStorage.getItem("user_id");
+  setIsLoggedIn(hasUser);
+  if (!hasUser) {
+    router.push("/login?next=/cart");
+  }
+}, [router]);
 
   // Load cart from localStorage on mount
   useEffect(() => {
@@ -71,15 +93,41 @@ export default function CartPage() {
 
   const subtotal = items.reduce((s, it) => s + it.purchase_price * it.quantity, 0);
 
-  const handleCheckout = () => {
-    if (items.length === 0) return;
-    // simple order number based on timestamp
-    const orderNumber = Date.now().toString().slice(-6);
-    // optional: clear cart, then navigate
-    localStorage.setItem("cart", JSON.stringify([]));
-    setItems([]);
-    router.push(`/thankyou?order=${orderNumber}`);
+  const handleCheckout = async () => {
+  setErr(null);
+  if (items.length === 0) return;
+
+  const rawUser = typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
+  const user_id = rawUser ? Number(rawUser) : null;
+
+  if (!user_id) {
+    router.push("/login?next=/cart");
+    return;
+  }
+
+  try {
+      setBusy(true);
+      const API = getApiBase();
+
+      await jsonFetch<{ message: string }>(`${API}/cart`, {
+        method: "POST",
+        body: JSON.stringify({ total: subtotal, user_id }),
+      });
+
+      localStorage.setItem("cart", JSON.stringify([]));
+      setItems([]);
+      const orderNumber = Date.now().toString().slice(-6);
+      router.push(`/thankyou?order=${orderNumber}`);
+    } catch (e: unknown) {
+      const msg =
+        e && typeof e === "object" && "message" in e ? String((e as any).message) : "Error";
+      setErr(msg || "No se pudo procesar tu pedido");
+    } finally {
+      setBusy(false);
+    }
   };
+
+
 
   return (
     <>
@@ -139,8 +187,8 @@ export default function CartPage() {
                 <strong>Total libros:</strong>
                 <strong>Q{subtotal.toFixed(2)}</strong>
               </div>
-              <button className={styles.checkout} onClick={handleCheckout}>
-                Pedir Ahora
+              <button disabled={busy || !isLoggedIn} className={styles.checkout} onClick={handleCheckout}>
+                {busy ? "Procesando..." : "Pedir Ahora"}
               </button>
             </aside>
           </section>
