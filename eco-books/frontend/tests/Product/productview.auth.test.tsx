@@ -190,4 +190,5 @@ describe("ProductViewPage - Navegación del botón 'Pedir Ahora'", () => {
             expect(wentToCartPath()).toBe(false);       // NO /cart directo
         });
     });
+
 });
