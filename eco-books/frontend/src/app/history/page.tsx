@@ -1,4 +1,3 @@
-// app/history/page.tsx
 "use client";
 
 import "./history.css";
@@ -6,8 +5,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { getApiBase } from "../lib/api";
 
-// Lo que devuelve el backend: { items: [{ articulo, precio, cantidad, fecha }, ...] }
 type HistoryItem = {
   articulo: string;
   precio: number | string;
@@ -15,11 +14,10 @@ type HistoryItem = {
   fecha: string; // ISO date o 'YYYY-MM-DD'
 };
 
-// Estructura de UI (agrupamos por fecha para conservar tus cards)
 type UiOrder = {
-  id: string;          // Id sintético por fecha
-  date: string;        // "16 de septiembre de 2020"
-  time: string;        // "—" (no tenemos hora real)
+  id: string;          
+  date: string;        
+  time: string;        
   status: "Completado" | "Cancelado";
   items: Array<{ name: string; price: string; quantity: number }>;
 };
@@ -30,21 +28,21 @@ function gtCurrency(v: number | string) {
 }
 
 function gtLongDate(input: string) {
-  // Si viene "YYYY-MM-DD" lo parseamos a Date (sin zona), y si es ISO lo toma igual.
   const d = new Date(input);
   return d.toLocaleDateString("es-GT", { year: "numeric", month: "long", day: "numeric" });
 }
 
 export default function HistoryPage() {
   const router = useRouter();
-  const [items, setItems] = useState<HistoryItem[] | null>(null); // null = cargando
+  const [items, setItems] = useState<HistoryItem[] | null>(null); 
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API}/order/history`, {
-          credentials: "include", // MUY IMPORTANTE para enviar cookie
+        const API = getApiBase();
+        const res = await fetch(`${API}/order/history`, {
+          credentials: "include", 
         });
 
         if (res.status === 401) {
@@ -67,13 +65,12 @@ export default function HistoryPage() {
     })();
   }, [router]);
 
-  // Transformamos items planos a "órdenes" agrupando por fecha (día)
   const orders: UiOrder[] = useMemo(() => {
     if (!items) return [];
     const byDate = new Map<string, UiOrder>();
 
     for (const it of items) {
-      // Normalizamos fecha a "YYYY-MM-DD" para agrupar por día
+      
       const dayKey = new Date(it.fecha).toISOString().slice(0, 10);
 
       if (!byDate.has(dayKey)) {
@@ -93,7 +90,6 @@ export default function HistoryPage() {
       });
     }
 
-    // Ordenamos por fecha descendente (más reciente primero)
     return Array.from(byDate.entries())
       .sort((a, b) => (a[0] < b[0] ? 1 : -1))
       .map(([, v]) => v);

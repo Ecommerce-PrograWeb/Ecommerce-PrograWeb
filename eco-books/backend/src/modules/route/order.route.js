@@ -7,7 +7,8 @@ import {
   patchOrder,
   putOrder,
   deleteOrder,
-  historyForUser,              // 👈 AGREGA ESTA LÍNEA
+  historyForUser,  
+  checkout,              
 } from "../controller/order.controller.js";
 import { verifyJWT } from "../../core/middlewares/auth.js";
 
@@ -16,8 +17,9 @@ const router = Router();
 router.get("/", getOrders);
 router.get("/user/:userId", getOrdersByUserId);
 
-// ¡Mantén /history antes de "/:id"!
-router.get("/history", verifyJWT, historyForUser);   // 👈 REEMPLAZA EL STUB
+router.get("/history", verifyJWT, historyForUser); 
+
+router.post("/checkout", verifyJWT, checkout);
 
 router.get("/:id", getOrderById);
 router.post("/", createOrder);

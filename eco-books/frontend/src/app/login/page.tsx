@@ -26,7 +26,6 @@ function LoginForm() {
     e.preventDefault();
     setError(null);
 
-    // Simple frontend validation only (this page is UI-only)
     if (!email || !password) {
       setError('Por favor ingresa correo y contraseña');
       return;
@@ -34,7 +33,7 @@ function LoginForm() {
     try {
       setLoading(true);
       const API = getApiBase();
-      const data = await jsonFetch<LoginResponse>(`${API}/users/auth/login`, {
+      const data = await jsonFetch<LoginResponse>(`${API}/auth/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });

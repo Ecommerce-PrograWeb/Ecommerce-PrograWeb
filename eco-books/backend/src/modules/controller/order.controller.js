@@ -1,4 +1,7 @@
 import OrderService from '../service/order.service.js';
+import { sequelize } from "../../config/database.js";
+import Order from "../model/order.model.js";
+import OrderDetail from "../model/order-detail.model.js";
 
 // GET /orders
 export async function getOrders(req, res) {
@@ -152,13 +155,11 @@ export async function deleteOrder(req, res) {
   }
 }
 
-// GET /orders/history (usuario autenticado)
-// Devuelve: articulo, precio, cantidad, fecha
+// GET /orders/history 
 export async function historyForUser(req, res) {
   try {
     const userId = req.user.user_id;
 
-    // Llama al servicio (lo creamos abajo)
     const items = await OrderService.getHistoryForUser(userId);
 
     return res.status(200).json({ items });
@@ -168,3 +169,65 @@ export async function historyForUser(req, res) {
   }
 }
 
+export async function checkout(req, res) {
+  const userId = req.user?.user_id;
+  const { items, total, address_id = null, cart_id = null } = req.body || {};
+
+  try {
+    if (!userId) {
+      return res.status(401).json({ error: "No autenticado" });
+    }
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: "items es requerido y debe tener elementos" });
+    }
+
+    const createdOrders = [];
+    await sequelize.transaction(async (t) => {
+      for (const it of items) {
+        const { book_id, price, quantity = 1 } = it || {};
+        if (!book_id || price == null) {
+          throw new Error("Cada item debe incluir book_id y price");
+        }
+
+        const od = await OrderDetail.create(
+          {
+            sale_price: Number(price), 
+            book_id,
+          },
+          { transaction: t }
+        );
+
+        const ord = await Order.create(
+          {
+            date: new Date(),            
+            status: "Pending",           
+            user_id: userId,             
+            order_detail_id: od.order_detail_id,
+            address_id: address_id,      
+            cart_id: cart_id,            
+          },
+          { transaction: t }
+        );
+
+        createdOrders.push(ord.order_id);
+      }
+    });
+
+    return res.status(201).json({
+      message: "Checkout OK",
+      orders_count: createdOrders.length,
+      orders: createdOrders,
+      total: Number(total ?? 0),
+    });
+  } catch (err) {
+
+    if (err.name === "SequelizeForeignKeyConstraintError") {
+      return res.status(409).json({ error: "FK inválida (book_id, user_id, address_id o cart_id)" });
+    }
+    if (err.name === "SequelizeDatabaseError" || err.name === "SequelizeValidationError") {
+      return res.status(422).json({ error: err.message });
+    }
+    console.error("POST /order/checkout error:", err);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+}
