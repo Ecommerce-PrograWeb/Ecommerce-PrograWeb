@@ -41,6 +41,8 @@ services:
       JWT_SECRET: cambialo_por_un_secreto_largo
       JWT_EXPIRES: 1h
       NODE_ENV: development
+      DD_AGENT_HOST: host.docker.internal
+      DD_DOGSTATSD_PORT: 8125
     depends_on:
       db:
         condition: service_healthy

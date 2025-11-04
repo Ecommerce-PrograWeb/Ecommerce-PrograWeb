@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import router from "./index.js";
 import { errorHandler } from "./core/errors/error-handler.js";
+import metricsMiddleware from "./core/middlewares/metrics.js";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(
 );
 
 app.use(express.json());
+// Metrics middleware: registra latencia y contadores por status code en Datadog
+app.use(metricsMiddleware);
 app.use(morgan("dev"));
 app.use(cookieParser());
 
