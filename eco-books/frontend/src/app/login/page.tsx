@@ -26,25 +26,42 @@ function LoginForm() {
     e.preventDefault();
     setError(null);
 
+    console.log('[login] Iniciando login...');
+
     if (!email || !password) {
-      setError('Por favor ingresa correo y contraseña');
+      const msg = 'Por favor ingresa correo y contraseña';
+      console.error('[login]', msg);
+      setError(msg);
       return;
     }
+    
     try {
       setLoading(true);
       const API = getApiBase();
+      
+      console.log('[login] Enviando request a /auth/login:', { email });
+
       const data = await jsonFetch<LoginResponse>(`${API}/auth/login`, {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
 
+      console.log('[login] Login exitoso:', data);
+
+      // Guardar datos del usuario en localStorage
       localStorage.setItem("user_id", String(data.user.user_id));
       localStorage.setItem("user_name", data.user.name);
       localStorage.setItem("user_email", data.user.email);
+      if (data.user.role) {
+        localStorage.setItem("user_role", data.user.role);
+      }
 
+      console.log('[login] Redirigiendo a:', next);
       router.push(next);
     } catch (err: any) {
-      setError(err?.message || "Error al iniciar sesión");
+      const errorMsg = err?.message || "Error al iniciar sesión";
+      console.error('[login] Error al iniciar sesión:', errorMsg, err);
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }

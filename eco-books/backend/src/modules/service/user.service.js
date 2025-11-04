@@ -35,35 +35,54 @@ export async function getUserById(id) {
   return rows[0] || null;
 }
 
+/** Verificar si existe usuario por email */
+export async function checkUserExists(email) {
+  const [rows] = await sequelize.query(
+    "SELECT 1 FROM `User` WHERE email = :email",
+    { replacements: { email } }
+  );
+  return rows.length > 0;
+}
+
 /** CREATE  */
 export async function createUser(data = {}) {
   const { name, email, password, role_id, role } = data;
+  
+  console.log("[user.service] createUser - datos recibidos:", { name, email, role, role_id });
+  
   if (!name || !email || !password) {
+    console.error("[user.service] createUser - datos incompletos");
     throw new Error("name, email y password son obligatorios");
   }
 
   // email único
-  const [exists] = await sequelize.query(
-    "SELECT 1 FROM `User` WHERE email = :email",
-    { replacements: { email } }
-  );
-  if (exists.length) throw new Error("El email ya está registrado");
+  const exists = await checkUserExists(email);
+  if (exists) {
+    console.error("[user.service] createUser - email duplicado:", email);
+    throw new Error("El email ya está registrado");
+  }
 
   // resolver role_id por nombre si viene 'role'
   let roleId = role_id ?? null;
   if (!roleId && role) {
     roleId = await findRoleIdByType(role);
-    if (!roleId) throw new Error(`Role '${role}' no existe. Inserta antes en tabla Role.`);
+    if (!roleId) {
+      console.error("[user.service] createUser - rol no existe:", role);
+      throw new Error(`Role '${role}' no existe. Inserta antes en tabla Role.`);
+    }
   }
 
   //  guardar 
+  console.log("[user.service] createUser - guardando usuario en DB...");
   const [result] = await sequelize.query(
     "INSERT INTO `User` (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)",
     { replacements: { name, email, password, role_id: roleId } }
   );
 
   const insertId = result.insertId ?? result;
-  return await getUserById(insertId);
+  const newUser = await getUserById(insertId);
+  console.log("[user.service] createUser - usuario creado exitosamente:", newUser);
+  return newUser;
 }
 
 /** UPDATE  */
@@ -120,6 +139,8 @@ export async function deleteUser(id) {
 
 /** LOGIN */
 export async function login(email, password) {
+  console.log("[user.service] login - intentando login para email:", email);
+  
   const [rows] = await sequelize.query(
     `SELECT u.user_id, u.name, u.email, u.password, r.type AS role
        FROM \`User\` u
@@ -129,11 +150,18 @@ export async function login(email, password) {
   );
 
   const user = rows[0];
-  if (!user) return null;
+  if (!user) {
+    console.error("[user.service] login - usuario no encontrado");
+    return null;
+  }
 
- 
-  if (user.password !== password) return null;
+  // TODO: Usar bcrypt para comparar passwords hasheadas
+  if (user.password !== password) {
+    console.error("[user.service] login - password incorrecta");
+    return null;
+  }
 
+  console.log("[user.service] login - login exitoso para:", email);
   const { password: _ignored, ...safe } = user;
   return safe;
 }
