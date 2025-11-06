@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="backup: update ProductViewPage tests with additional assertions and workspace configuration">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/frontend-build.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/frontend-build.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="CI: update frontend build configuration and unify test commands" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,7 +142,15 @@
       <option name="project" value="LOCAL" />
       <updated>1761181496945</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="CI: update frontend build configuration and unify test commands">
+      <option name="closed" value="true" />
+      <created>1762470058638</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1762470058638</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,6 +179,7 @@
     <MESSAGE value="fix: ensure newline at end of file in cart.model.js" />
     <MESSAGE value="backup: enhance ProductViewPage tests with navigation and authentication scenarios" />
     <MESSAGE value="backup: update ProductViewPage tests with additional assertions and workspace configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup: update ProductViewPage tests with additional assertions and workspace configuration" />
+    <MESSAGE value="CI: update frontend build configuration and unify test commands" />
+    <option name="LAST_COMMIT_MESSAGE" value="CI: update frontend build configuration and unify test commands" />
   </component>
 </project>
