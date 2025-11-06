@@ -14,3 +14,4 @@ module.exports = {
         '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     },
 };
+
