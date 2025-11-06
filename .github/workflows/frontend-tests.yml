@@ -17,12 +17,28 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: npm
           cache-dependency-path: eco-books/frontend/package-lock.json
 
+      # Diagnóstico: confirma que estamos en la carpeta correcta y que existen package.json/lock
+      - name: Diagnose workspace
+        run: |
+          echo "PWD=$(pwd)"
+          ls -la
+          echo "---- eco-books/frontend ----"
+          ls -la eco-books/frontend || true
+          echo "node version:"
+          node -v
+          echo "npm version:"
+          npm -v
+
+      # Instala dependencias con fallback si ci falla por peer deps
       - name: Install Frontend Dependencies
         working-directory: eco-books/frontend
-        run: npm ci
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+        run: |
+          npm ci --no-audit --no-fund || npm install --legacy-peer-deps --no-audit --no-fund
 
       - name: Run Frontend Tests (Jest)
         working-directory: eco-books/frontend
@@ -34,3 +50,13 @@ jobs:
         with:
           name: coverage-report
           path: eco-books/frontend/coverage
+
+      # Si algo falla, subimos los logs de npm para ver el error real
+      - name: Upload npm logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-logs
+          path: |
+            ~/.npm/_logs/**
+            eco-books/frontend/npm-debug.log
