@@ -1,7 +1,5 @@
-// Carga tipos y matchers para Vitest (amplía expect con toBeInTheDocument, etc.)
-import "@testing-library/jest-dom/vitest";
-
-import { afterEach } from "vitest";
-import { cleanup } from "@testing-library/react";
+// eco-books/frontend/tests/setupTests.js
+import '@testing-library/jest-dom';
+import { cleanup } from '@testing-library/react';
 
 afterEach(() => cleanup());
