@@ -1,0 +1,38 @@
+name: Frontend Tests
+
+on:
+  workflow_dispatch:            # permite correrlo manualmente
+  push:
+    branches: [ CI/CD-testing ] # corre al hacer push a esa rama
+  pull_request:
+    branches: [ CI/CD-testing ] # corre en PRs hacia esa rama
+
+jobs:
+  frontend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+          cache: npm
+          cache-dependency-path: eco-books/frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        working-directory: eco-books/frontend
+        run: npm ci
+
+      - name: Run Frontend Tests (Vitest)
+        working-directory: eco-books/frontend
+        env:
+          CI: 'true'
+        run: npm run test:ci      # asegúrate de tener este script en package.json
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: eco-books/frontend/coverage
