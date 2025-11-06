@@ -1,4 +1,3 @@
-// eco-books/frontend/jest.config.js
 module.exports = {
     testEnvironment: 'jsdom',
     transform: {
@@ -8,5 +7,10 @@ module.exports = {
     testMatch: ['**/tests/**/*.test.(js|jsx|ts|tsx)'],
     moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
     collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', 'app/**/*.{js,jsx,ts,tsx}'],
-    coverageDirectory: 'coverage'
+    coverageDirectory: 'coverage',
+
+    moduleNameMapper: {
+        '\\.module\\.css$': 'identity-obj-proxy',
+        '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
+    },
 };
