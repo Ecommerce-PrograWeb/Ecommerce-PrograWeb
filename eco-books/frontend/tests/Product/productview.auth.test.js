@@ -1,6 +1,6 @@
 // tests/Product/productview.auth.test.js
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import ProductViewPage from "@/app/productview/page";
+import ProductViewPage from "../../src/app/productview/page";
 
 // Mock de next/navigation (lo dejamos estable; no verificamos push, miramos location.href)
 jest.mock("next/navigation", () => ({

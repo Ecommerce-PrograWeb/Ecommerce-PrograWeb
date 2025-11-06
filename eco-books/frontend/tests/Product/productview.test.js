@@ -1,6 +1,6 @@
 // tests/Product/productview.test.js
 import { render, screen } from "@testing-library/react";
-import ProductViewPage from "@/app/productview/page";
+import ProductViewPage from "../../src/app/productview/page";
 
 // Mock limpio de next/navigation (no usamos push aquí)
 jest.mock("next/navigation", () => ({
