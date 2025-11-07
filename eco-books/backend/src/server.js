@@ -1,5 +1,10 @@
-﻿import dotenv from "dotenv";
+﻿// IMPORTANTE: Datadog debe inicializarse ANTES que cualquier otro import
+import dotenv from "dotenv";
 dotenv.config();
+
+// Inicializar Datadog APM primero
+import { initializeDatadog } from "./config/datadog.js";
+initializeDatadog();
 
 console.log("DB_USER:", process.env.DB_USER); // <-- Depuración
 console.log("DB_PASS:", process.env.DB_PASS); // <-- Depuración
