@@ -39,11 +39,6 @@
     "tailwindcss": "^4",
     "typescript": "5.9.2"
   },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "roots": [
-      "<rootDir>/tests"
-    ],
     "testMatch": [
       "**/*.(test|spec).{ts,tsx,js,jsx}"
     ],
@@ -71,4 +66,3 @@
     ],
     "verbose": true
   }
-}
