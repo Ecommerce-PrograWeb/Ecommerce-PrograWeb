@@ -5,13 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="CI: update import paths in tests and refine Jest configuration">
-      <change afterPath="$PROJECT_DIR$/eco-books/frontend/tests/__mocks__/fileMock.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/eco-books/frontend/tests/__mocks__/styleMock.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/jest.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/jest.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/eco-books/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/setupTests.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/tests/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/tests/setupTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/setupTests.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,6 +88,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\susan\Desktop\Progra Web\Ecommerce-PrograWeb\eco-books\frontend" />
       <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app\productview" />
       <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app" />
     </key>
@@ -117,7 +116,7 @@
       <workItem from="1757383942297" duration="717000" />
       <workItem from="1757432558724" duration="6079000" />
       <workItem from="1761166088195" duration="2889000" />
-      <workItem from="1762474740359" duration="954000" />
+      <workItem from="1762474740359" duration="1968000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement cart functionality with controller, model, service, and routes">
       <option name="closed" value="true" />
@@ -207,7 +206,15 @@
       <option name="project" value="LOCAL" />
       <updated>1762475081095</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762476000208</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1762476000208</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -37,32 +37,33 @@
     "jest-environment-jsdom": "^30.2.0",
     "jsdom": "^27.1.0",
     "tailwindcss": "^4",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "whatwg-fetch": "^3.6.20"
   },
-    "testMatch": [
-      "**/*.(test|spec).{ts,tsx,js,jsx}"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/tests/setupTests.ts"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx|js|jsx)$": "babel-jest"
-    },
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1",
-      "\\.(css|scss|sass)$": "identity-obj-proxy",
-      "^next/image$": "<rootDir>/tests/__mocks__/nextImageMock.tsx"
-    },
-    "coverageDirectory": "<rootDir>/coverage",
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx,js,jsx}",
-      "!**/*.d.ts"
-    ],
-    "verbose": true
-  }
+  "testMatch": [
+    "**/*.(test|spec).{ts,tsx,js,jsx}"
+  ],
+  "moduleFileExtensions": [
+    "ts",
+    "tsx",
+    "js",
+    "jsx"
+  ],
+  "setupFilesAfterEnv": [
+    "<rootDir>/tests/setupTests.ts"
+  ],
+  "transform": {
+    "^.+\\.(ts|tsx|js|jsx)$": "babel-jest"
+  },
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1",
+    "\\.(css|scss|sass)$": "identity-obj-proxy",
+    "^next/image$": "<rootDir>/tests/__mocks__/nextImageMock.tsx"
+  },
+  "coverageDirectory": "<rootDir>/coverage",
+  "collectCoverageFrom": [
+    "src/**/*.{ts,tsx,js,jsx}",
+    "!**/*.d.ts"
+  ],
+  "verbose": true
+}
