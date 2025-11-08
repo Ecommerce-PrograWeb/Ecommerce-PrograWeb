@@ -67,55 +67,63 @@ function LoginForm() {
     }
   };
   return (
+    <main className={styles.wrapper}>
+      <div className={styles.overlay} aria-hidden />
+      <section className={styles.card}>
+        <h1 className={styles.title}>Iniciar Sesión</h1>
+
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
+          <label className={styles.label} htmlFor="email">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            className={styles.input}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="tucorreo@ejemplo.com"
+            required
+          />
+
+          <label className={styles.label} htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="********"
+            required
+          />
+
+          {error && <p className={styles.error}>{error}</p>}
+
+          <div className={styles.actions}>
+            <button type="submit" className={styles.primary}>Ingresar</button>
+            <button
+              type="button"
+              className={styles.ghost}
+              onClick={() => router.push('/singup')}
+            >
+              Crear cuenta
+            </button>
+          </div>
+        </form>
+
+        <div className={styles.meta}>
+          <p>¿Olvidaste tu contraseña? <button className={styles.link}>Recuperar</button></p>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
     <>
       <Header />
-      <main className={styles.wrapper}>
-        <div className={styles.overlay} aria-hidden />
-        <section className={styles.card}>
-          <h1 className={styles.title}>Iniciar Sesión</h1>
-
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <label className={styles.label} htmlFor="email">Correo electrónico</label>
-            <input
-              id="email"
-              type="email"
-              className={styles.input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="tucorreo@ejemplo.com"
-              required
-            />
-
-            <label className={styles.label} htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              type="password"
-              className={styles.input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="********"
-              required
-            />
-
-            {error && <p className={styles.error}>{error}</p>}
-
-            <div className={styles.actions}>
-              <button type="submit" className={styles.primary}>Ingresar</button>
-              <button
-                type="button"
-                className={styles.ghost}
-                onClick={() => router.push('/singup')}
-              >
-                Crear cuenta
-              </button>
-            </div>
-          </form>
-
-          <div className={styles.meta}>
-            <p>¿Olvidaste tu contraseña? <button className={styles.link}>Recuperar</button></p>
-          </div>
-        </section>
-      </main>
+      <Suspense fallback={<div>Cargando...</div>}>
+        <LoginForm />
+      </Suspense>
       <Footer />
     </>
   );
