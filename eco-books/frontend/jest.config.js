@@ -3,8 +3,14 @@ module.exports = {
     testEnvironment: 'jsdom',
     setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
     transform: {
-        // usa babel-jest para TS/TSX y JS/JSX
-        '^.+\\.(ts|tsx|js|jsx)$': 'babel-jest',
+        // usa babel-jest con configuración inline
+        '^.+\\.(ts|tsx|js|jsx)$': ['babel-jest', {
+            presets: [
+                ['@babel/preset-env', { targets: { node: 'current' } }],
+                ['@babel/preset-react', { runtime: 'automatic' }],
+                '@babel/preset-typescript',
+            ],
+        }],
     },
     moduleNameMapper: {
         '\\.(css|scss|sass)$': '<rootDir>/tests/__mocks__/styleMock.js',
