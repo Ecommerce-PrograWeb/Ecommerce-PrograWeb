@@ -46,12 +46,12 @@ jobs:
         working-directory: eco-books
         run: |
           echo "Starting Docker services..."
-          docker-compose up -d
+          docker compose up -d
           
           echo "Waiting for database to be healthy..."
           timeout=60
           elapsed=0
-          until docker-compose ps | grep "healthy" | grep -q "db" || [ $elapsed -eq $timeout ]; do
+          until docker compose ps | grep "healthy" | grep -q "db" || [ $elapsed -eq $timeout ]; do
             echo "⏳ Waiting for database... ($elapsed/$timeout seconds)"
             sleep 3
             elapsed=$((elapsed + 3))
@@ -81,7 +81,7 @@ jobs:
         working-directory: eco-books
         run: |
           echo "=== Docker Compose Status ==="
-          docker-compose ps
+          docker compose ps
           echo ""
           echo "=== Backend Health Check ==="
           curl -f http://localhost:3000 || echo "Backend not responding"
@@ -117,19 +117,19 @@ jobs:
         working-directory: eco-books
         run: |
           echo "==================== BACKEND LOGS ===================="
-          docker-compose logs --tail=100 backend
+          docker compose logs --tail=100 backend
           echo ""
           echo "==================== FRONTEND LOGS ===================="
-          docker-compose logs --tail=100 frontend
+          docker compose logs --tail=100 frontend
           echo ""
           echo "==================== DATABASE LOGS ===================="
-          docker-compose logs --tail=50 db
+          docker compose logs --tail=50 db
       
       - name: 🧹 Cleanup Docker resources
         if: always()
         working-directory: eco-books
         run: |
-          docker-compose down -v
+          docker compose down -v
           docker system prune -f
 
   # Job separado para tests en diferentes navegadores (opcional)
@@ -166,7 +166,7 @@ jobs:
       - name: 🐳 Start services
         working-directory: eco-books
         run: |
-          docker-compose up -d
+          docker compose up -d
           
           # Esperar servicios
           timeout=120
@@ -193,4 +193,4 @@ jobs:
       - name: 🧹 Cleanup
         if: always()
         working-directory: eco-books
-        run: docker-compose down -v
+        run: docker compose down -v
