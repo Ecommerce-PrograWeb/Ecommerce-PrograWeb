@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="CI: update import paths in tests and refine Jest configuration">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/setupTests.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/setupTests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.js" afterDir="false" />
-    </list>
+    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
