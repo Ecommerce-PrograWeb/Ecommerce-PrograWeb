@@ -27,13 +27,20 @@ export default function SingUpPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
+
+    console.log('[singup] Iniciando registro...');
 
     if (!name || !email || !password || !confirm) {
-      setError('Por favor completa todos los campos');
+      const msg = 'Por favor completa todos los campos';
+      console.error('[singup]', msg);
+      setError(msg);
       return;
     }
     if (password !== confirm) {
-      setError('Las contraseñas no coinciden');
+      const msg = 'Las contraseñas no coinciden';
+      console.error('[singup]', msg);
+      setError(msg);
       return;
     }
 
@@ -42,16 +49,28 @@ export default function SingUpPage() {
       const API = getApiBase();
       const body = { name, email, password, role: "Customer" };
 
-      const user = await jsonFetch<CreateUserResponse>(`${API}/users`, {
-        method: "POST",
-        body: JSON.stringify(body),
-      });
+      console.log('[singup] Enviando request a /auth/register:', { name, email, role: body.role });
+
+      const response = await jsonFetch<{ message: string; user: CreateUserResponse }>(
+        `${API}/auth/register`, 
+        {
+          method: "POST",
+          body: JSON.stringify(body),
+        }
+      );
+
+      console.log('[singup] Usuario registrado exitosamente:', response);
 
       //When signup is successful: show message and redirect after a short delay
-      setSuccess("Cuenta creada correctamente. Ahora puedes iniciar sesión…");
-      setTimeout(() => router.push("/login"), 1000);
+      setSuccess("Cuenta creada correctamente. Redirigiendo al login...");
+      setTimeout(() => {
+        console.log('[singup] Redirigiendo a /login');
+        router.push("/login");
+      }, 1500);
     } catch (err: any) {
-      setError(err?.message || "Error al crear usuario");
+      const errorMsg = err?.message || "Error al crear usuario";
+      console.error('[singup] Error al registrar usuario:', errorMsg, err);
+      setError(errorMsg);
     } finally {
       setLoading(false);
     }

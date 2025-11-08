@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="backup: update ProductViewPage tests with additional assertions and workspace configuration">
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="CI: update import paths in tests and refine Jest configuration" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,12 +31,12 @@
     &quot;assignee&quot;: &quot;SusanaG17&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Ecommerce-PrograWeb/Ecommerce-PrograWeb",
-    "accountId": "a479212f-84d2-40fc-9ab7-aabe5fcb4625"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Ecommerce-PrograWeb/Ecommerce-PrograWeb&quot;,
+    &quot;accountId&quot;: &quot;a479212f-84d2-40fc-9ab7-aabe5fcb4625&quot;
   }
-}]]></component>
+}</component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -57,33 +55,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "#87 on Tests",
-    "last_opened_file_path": "C:/Users/susan/Desktop/Progra Web/Ecommerce-PrograWeb",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "ts.external.directory.path": "C:\\Users\\susan\\Desktop\\Progra Web\\Ecommerce-PrograWeb\\eco-books\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Tests&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/susan/Desktop/Progra Web/Ecommerce-PrograWeb&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\susan\\Desktop\\Progra Web\\Ecommerce-PrograWeb\\eco-books\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\susan\Desktop\Progra Web\Ecommerce-PrograWeb\eco-books\frontend" />
       <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app\productview" />
       <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app" />
     </key>
@@ -111,6 +110,7 @@
       <workItem from="1757383942297" duration="717000" />
       <workItem from="1757432558724" duration="6079000" />
       <workItem from="1761166088195" duration="2889000" />
+      <workItem from="1762474740359" duration="1968000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement cart functionality with controller, model, service, and routes">
       <option name="closed" value="true" />
@@ -144,7 +144,87 @@
       <option name="project" value="LOCAL" />
       <updated>1761181496945</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="CI: update frontend build configuration and unify test commands">
+      <option name="closed" value="true" />
+      <created>1762470058638</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1762470058638</updated>
+    </task>
+    <task id="LOCAL-00006" summary="CI: add setupTests.js for improved testing environment">
+      <option name="closed" value="true" />
+      <created>1762470278084</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1762470278084</updated>
+    </task>
+    <task id="LOCAL-00007" summary="CI: enhance Jest configuration for coverage and module mapping">
+      <option name="closed" value="true" />
+      <created>1762470711910</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1762470711910</updated>
+    </task>
+    <task id="LOCAL-00008" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762470966855</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1762470966855</updated>
+    </task>
+    <task id="LOCAL-00009" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762471333101</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1762471333101</updated>
+    </task>
+    <task id="LOCAL-00010" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762474796211</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1762474796211</updated>
+    </task>
+    <task id="LOCAL-00011" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762475081095</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1762475081095</updated>
+    </task>
+    <task id="LOCAL-00012" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762476000208</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1762476000208</updated>
+    </task>
+    <task id="LOCAL-00013" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762587074751</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1762587074751</updated>
+    </task>
+    <task id="LOCAL-00014" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762587096415</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1762587096415</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +253,10 @@
     <MESSAGE value="fix: ensure newline at end of file in cart.model.js" />
     <MESSAGE value="backup: enhance ProductViewPage tests with navigation and authentication scenarios" />
     <MESSAGE value="backup: update ProductViewPage tests with additional assertions and workspace configuration" />
-    <option name="LAST_COMMIT_MESSAGE" value="backup: update ProductViewPage tests with additional assertions and workspace configuration" />
+    <MESSAGE value="CI: update frontend build configuration and unify test commands" />
+    <MESSAGE value="CI: add setupTests.js for improved testing environment" />
+    <MESSAGE value="CI: enhance Jest configuration for coverage and module mapping" />
+    <MESSAGE value="CI: update import paths in tests and refine Jest configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="CI: update import paths in tests and refine Jest configuration" />
   </component>
 </project>

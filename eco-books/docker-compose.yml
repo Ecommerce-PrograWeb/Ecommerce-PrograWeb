@@ -24,6 +24,36 @@ services:
     networks:
       - app-network
 
+  # Datadog Agent - Recolecta métricas, trazas y logs
+  datadog-agent:
+    image: gcr.io/datadoghq/agent:7
+    container_name: datadog-agent
+    environment:
+      # API Key (OPCIONAL - solo si usas Datadog SaaS)
+      DD_API_KEY: c5e8b6d5eabada11131032ed7b1fa407  # Descomenta y configura si usas Datadog cloud
+      
+      # Configuración del Agent
+      DD_SITE: datadoghq.com
+      DD_APM_ENABLED: "true"
+      DD_APM_NON_LOCAL_TRAFFIC: "true"
+      DD_LOGS_ENABLED: "true"
+      DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL: "true"
+      DD_PROCESS_AGENT_ENABLED: "true"
+      DD_DOGSTATSD_NON_LOCAL_TRAFFIC: "true"
+      
+      # Tags globales
+      DD_TAGS: "env:development team:ecobooks"
+      
+    ports:
+      - "8126:8126"   # APM traces
+      - "8125:8125/udp" # DogStatsD metrics
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc/:/host/proc/:ro
+      - /sys/fs/cgroup/:/host/sys/fs/cgroup:ro
+    networks:
+      - app-network
+
   backend:
     build: ./backend
     ports:
@@ -41,9 +71,23 @@ services:
       JWT_SECRET: cambialo_por_un_secreto_largo
       JWT_EXPIRES: 1h
       NODE_ENV: development
+      # Datadog APM
+      DD_TRACE_ENABLED: "true"
+      DD_SERVICE: eco-books-backend
+      DD_ENV: development
+      DD_VERSION: 1.0.0
+      DD_AGENT_HOST: datadog-agent
+      DD_TRACE_AGENT_PORT: 8126
+      DD_TRACE_SAMPLE_RATE: 1.0
+      DD_LOGS_INJECTION: "true"
+      DD_RUNTIME_METRICS_ENABLED: "true"
+      DD_PROFILING_ENABLED: "true"
+      
     depends_on:
       db:
         condition: service_healthy
+      datadog-agent:
+        condition: service_started
     volumes:
       - ./backend:/app
       - /app/node_modules

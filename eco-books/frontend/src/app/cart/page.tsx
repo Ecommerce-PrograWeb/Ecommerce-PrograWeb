@@ -1,4 +1,3 @@
-// app/cart/page.tsx (o donde tengas CartPage)
 "use client";
 
 import { useEffect, useState } from "react";
@@ -23,117 +22,102 @@ export default function CartPage() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
-
-const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem("user_id"));
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "user_id") setIsLoggedIn(!!localStorage.getItem("user_id"));
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-  const hasUser = !!localStorage.getItem("user_id");
-  setIsLoggedIn(hasUser);
-  if (!hasUser) {
-    router.push("/login?next=/cart");
-  }
-}, [router]);
+    const hasUser = !!localStorage.getItem("user_id");
+    setIsLoggedIn(hasUser);
+    if (!hasUser) router.push("/login?next=/cart");
+  }, [router]);
 
-  // Load cart from localStorage on mount
+
   useEffect(() => {
-    console.log("🛒 CartPage: useEffect ejecutándose para cargar carrito");
     try {
       const raw = localStorage.getItem("cart");
-      console.log("🛒 CartPage: localStorage.getItem('cart') =", raw);
       if (raw) {
         const parsed = JSON.parse(raw);
-        console.log("🛒 CartPage: parsed =", parsed);
-        console.log("🛒 CartPage: Array.isArray(parsed) =", Array.isArray(parsed));
-        if (Array.isArray(parsed)) {
-          console.log("🛒 CartPage: Seteando items con", parsed.length, "elementos");
-          setItems(parsed);
-        }
-      } else {
-        console.log("🛒 CartPage: No hay datos en localStorage");
+        if (Array.isArray(parsed)) setItems(parsed);
       }
-    } catch (e) {
-      console.error("❌ CartPage: Error reading cart from localStorage", e);
+    } catch {
       setItems([]);
     }
     setIsLoaded(true);
   }, []);
 
-  // Save cart to localStorage only after initial load and when items change
+
   useEffect(() => {
     if (isLoaded) {
-      console.log("💾 CartPage: Guardando items en localStorage:", items);
       try {
         localStorage.setItem("cart", JSON.stringify(items));
-      } catch (e) {
-        console.error("Error saving cart to localStorage", e);
-      }
+      } catch {}
     }
   }, [items, isLoaded]);
 
   const changeQty = (book_id: number, delta: number) => {
-    setItems((prev) =>
-      prev.map((i) =>
+    setItems(prev =>
+      prev.map(i =>
         i.book_id === book_id ? { ...i, quantity: Math.max(1, i.quantity + delta) } : i
       )
     );
   };
 
   const removeItem = (book_id: number) => {
-    setItems((prev) => prev.filter((i) => i.book_id !== book_id));
+    setItems(prev => prev.filter(i => i.book_id !== book_id));
   };
 
   const subtotal = items.reduce((s, it) => s + it.purchase_price * it.quantity, 0);
 
   const handleCheckout = async () => {
-  setErr(null);
-  if (items.length === 0) return;
+    setErr(null);
+    if (items.length === 0) return;
 
-  const rawUser = typeof window !== "undefined" ? localStorage.getItem("user_id") : null;
-  const user_id = rawUser ? Number(rawUser) : null;
-
-  if (!user_id) {
-    router.push("/login?next=/cart");
-    return;
-  }
-
-  try {
+    try {
       setBusy(true);
       const API = getApiBase();
 
       await jsonFetch<{ message: string }>(`${API}/cart`, {
         method: "POST",
-        body: JSON.stringify({ total: subtotal, user_id }),
+        body: JSON.stringify({ total: subtotal }),
+      });
+
+      
+      const itemsPayload = items.map(it => ({
+        book_id: it.book_id,
+        price: it.purchase_price,
+        quantity: it.quantity,
+      }));
+
+      await jsonFetch(`${API}/order/checkout`, {
+        method: "POST",
+        body: JSON.stringify({
+          items: itemsPayload,
+          total: subtotal,
+          
+        }),
       });
 
       localStorage.setItem("cart", JSON.stringify([]));
       setItems([]);
       const orderNumber = Date.now().toString().slice(-6);
       router.push(`/thankyou?order=${orderNumber}`);
-    } catch (e: unknown) {
-      const msg =
-        e && typeof e === "object" && "message" in e ? String((e as any).message) : "Error";
-      setErr(msg || "No se pudo procesar tu pedido");
+    } catch (e: any) {
+      setErr(e?.message || "No se pudo procesar tu pedido");
     } finally {
       setBusy(false);
     }
   };
-
-
 
   return (
     <>
       <Header />
       <main className={styles.wrapper}>
         <h1 className={styles.title}>Tu Carrito</h1>
+
+        {err && (
+          <p style={{ color: "crimson", marginBottom: 12 }}>
+            {err}
+          </p>
+        )}
 
         {items.length === 0 ? (
           <div className={styles.empty}>
@@ -142,7 +126,7 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
         ) : (
           <section className={styles.list}>
             <div className={styles.items}>
-              {items.map((item) => (
+              {items.map(item => (
                 <article key={item.book_id} className={styles.card}>
                   <div className={styles.media}>
                     {item.cover ? (
@@ -161,16 +145,10 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
                     <h2 className={styles.name}>{item.name}</h2>
                     <p className={styles.price}>Q{Number(item.purchase_price).toFixed(2)}</p>
                     <div className={styles.controls}>
-                      <button onClick={() => changeQty(item.book_id, -1)} className={styles.qtyBtn}>
-                        −
-                      </button>
+                      <button onClick={() => changeQty(item.book_id, -1)} className={styles.qtyBtn}>−</button>
                       <span className={styles.qty}>{item.quantity}</span>
-                      <button onClick={() => changeQty(item.book_id, 1)} className={styles.qtyBtn}>
-                        +
-                      </button>
-                      <button onClick={() => removeItem(item.book_id)} className={styles.remove}>
-                        Eliminar
-                      </button>
+                      <button onClick={() => changeQty(item.book_id, 1)} className={styles.qtyBtn}>+</button>
+                      <button onClick={() => removeItem(item.book_id)} className={styles.remove}>Eliminar</button>
                     </div>
                   </div>
                 </article>
@@ -187,7 +165,11 @@ const [isLoggedIn, setIsLoggedIn] = useState(false);
                 <strong>Total libros:</strong>
                 <strong>Q{subtotal.toFixed(2)}</strong>
               </div>
-              <button disabled={busy || !isLoggedIn} className={styles.checkout} onClick={handleCheckout}>
+              <button
+                disabled={busy || !isLoggedIn}
+                className={styles.checkout}
+                onClick={handleCheckout}
+              >
                 {busy ? "Procesando..." : "Pedir Ahora"}
               </button>
             </aside>

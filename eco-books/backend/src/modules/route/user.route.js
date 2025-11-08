@@ -10,7 +10,6 @@ router.post("/", controller.createUser);
 router.put("/:id", controller.updateUser);
 router.delete("/:id", controller.deleteUser);
 
-
-router.post("/auth/login", controller.login);
+// Nota: Los endpoints de autenticación (login, register, logout) están en /auth
 
 export default router; //  para que el import por default funcione

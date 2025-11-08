@@ -3,8 +3,12 @@ name: Backend Tests
 on:
   push:
     branches: [ Tests, CI/CD-testing, main ]
+    paths:
+      - 'eco-books/backend/**'
   pull_request:
     branches: [ Tests, CI/CD-testing, main ]
+    paths:
+      - 'eco-books/backend/**'
 
 jobs:
   backend-tests:
