@@ -46,6 +46,7 @@ describe("ProductViewPage - Navegación del botón 'Pedir Ahora' (sin tocar page
         const btn = await screen.findByRole('button', { name: /pedir ahora/i });
         await user.click(btn);
 
+
         // Se agrega al carrito
         await waitFor(() => {
             const cart = readCart();
