@@ -100,8 +100,9 @@ export default function CartPage() {
       setItems([]);
       const orderNumber = Date.now().toString().slice(-6);
       router.push(`/thankyou?order=${orderNumber}`);
-    } catch (e: any) {
-      setErr(e?.message || "No se pudo procesar tu pedido");
+    } catch (e: unknown) {
+      const message = e instanceof Error ? e.message : "No se pudo procesar tu pedido";
+      setErr(message);
     } finally {
       setBusy(false);
     }

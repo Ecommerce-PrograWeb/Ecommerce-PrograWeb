@@ -20,7 +20,7 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,8 +58,8 @@ function LoginForm() {
 
       console.log('[login] Redirigiendo a:', next);
       router.push(next);
-    } catch (err: any) {
-      const errorMsg = err?.message || "Error al iniciar sesión";
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Error al iniciar sesión";
       console.error('[login] Error al iniciar sesión:', errorMsg, err);
       setError(errorMsg);
     } finally {
@@ -126,13 +126,5 @@ export default function LoginPage() {
       </Suspense>
       <Footer />
     </>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={<div>Cargando...</div>}>
-      <LoginForm />
-    </Suspense>
   );
 }
