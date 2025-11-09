@@ -58,8 +58,9 @@ export default function HistoryPage() {
 
         const data = await res.json();
         setItems(Array.isArray(data.items) ? data.items : []);
-      } catch (e: any) {
-        setError(e?.message || "Error de red");
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : "Error de red";
+        setError(message);
         setItems([]);
       }
     })();
