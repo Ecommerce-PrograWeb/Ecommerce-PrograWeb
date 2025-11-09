@@ -56,7 +56,20 @@ export const deleteUser = async (req, res, next) => {
     const { id } = req.params;
     const deleted = await userService.deleteUser(id);
     if (!deleted) return res.status(404).json({ message: "Usuario no encontrado" });
-    res.json({ message: "Usuario eliminado con éxito", user: deleted });
+  res.json({ message: "Usuario eliminado con éxito", user: deleted });
+  } catch (err) {
+    next(err);
+  }
+};
+
+/** POST /users/:id/restore */
+export const restoreUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await userService.restoreUser(id);
+    const user = await userService.getUserById(id);
+    if (!user) return res.status(404).json({ message: "Usuario no encontrado" });
+    res.json({ message: "Usuario restaurado correctamente", user });
   } catch (err) {
     next(err);
   }
@@ -84,5 +97,6 @@ export default {
   createUser,
   updateUser,
   deleteUser,
+  restoreUser,
   login,
 };

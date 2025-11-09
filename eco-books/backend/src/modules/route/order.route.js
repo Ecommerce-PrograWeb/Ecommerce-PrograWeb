@@ -7,6 +7,7 @@ import {
   patchOrder,
   putOrder,
   deleteOrder,
+  restoreOrder,
   historyForUser,  
   checkout,              
 } from "../controller/order.controller.js";
@@ -26,5 +27,6 @@ router.post("/", createOrder);
 router.patch("/:id", patchOrder);
 router.put("/:id", putOrder);
 router.delete("/:id", deleteOrder);
+router.post("/:id/restore", restoreOrder);
 
 export default router;

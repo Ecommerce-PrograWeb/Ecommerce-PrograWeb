@@ -25,7 +25,11 @@ const Address = sequelize.define('Address', {
   }
 }, {
   tableName: 'Address',
-  timestamps: false
+  timestamps: true,
+  paranoid: true,
+  createdAt: false,
+  updatedAt: false,
+  deletedAt: 'deleted_at'
 });
 
 export default Address;
