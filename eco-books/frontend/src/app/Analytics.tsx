@@ -4,18 +4,28 @@ import { useEffect } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID!;
+declare global {
+  interface Window {
+    dataLayer?: unknown[];
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+const GA_ID = (process.env.NEXT_PUBLIC_GA_ID as string | undefined) ?? undefined;
 
 export default function Analytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (!(window as any).gtag || !GA_ID) return;
-    const page_path = searchParams?.toString()
-      ? `${pathname}?${searchParams.toString()}`
-      : pathname || "/";
-    (window as any).gtag("config", GA_ID, { page_path });
+    if (!GA_ID || typeof window === "undefined" || typeof window.gtag !== "function") return;
+
+    const page_path =
+      searchParams && searchParams.toString()
+        ? `${pathname}?${searchParams.toString()}`
+        : pathname || "/";
+
+    window.gtag("config", GA_ID, { page_path });
   }, [pathname, searchParams]);
 
   if (!GA_ID) return null;
@@ -29,7 +39,7 @@ export default function Analytics() {
       <Script id="ga-init" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
           gtag('config', '${GA_ID}', { page_path: window.location.pathname });
         `}
