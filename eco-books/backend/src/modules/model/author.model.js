@@ -13,7 +13,11 @@ const Author = sequelize.define('Author', {
   }
 }, {
   tableName: 'Author',
-  timestamps: false
+  timestamps: true,
+  paranoid: true,
+  createdAt: false,
+  updatedAt: false,
+  deletedAt: 'deleted_at'
 });
 
 export default Author;

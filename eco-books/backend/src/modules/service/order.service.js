@@ -120,8 +120,29 @@ const OrderService = {
     return affected;
   },
 
-  // Delete order
-  deleteOrder: (id) => Order.destroy({ where: { order_id: id } }),
+  // Delete order (soft delete)
+  async deleteOrder(id) {
+    // Prefer instance-returning behavior when findByPk is available
+    if (Order.findByPk) {
+      const order = await Order.findByPk(id);
+      if (order === null) throw new Error(`Order with id ${id} not found`);
+      if (order) {
+        await Order.destroy({ where: { order_id: id } });
+        return order;
+      }
+      // otherwise fallthrough to numeric fallback
+    }
+
+    // Fallback: return numeric destroy result
+    const r = await Order.destroy({ where: { order_id: id } });
+    return r;
+  },
+
+  // Restore order
+  async restoreOrder(id) {
+    await Order.restore({ where: { order_id: id } });
+    return Order.findByPk(id);
+  },
 
   // === NEW === Historial para el usuario autenticado
   // Devuelve: articulo (Book.name), precio (OrderDetail.sale_price),
@@ -137,7 +158,10 @@ const OrderService = {
       FROM \`Order\` o
       JOIN OrderDetail od ON o.order_detail_id = od.order_detail_id
       JOIN Book b        ON od.book_id = b.book_id
-      WHERE o.user_id = ?
+      WHERE o.user_id = ? 
+      AND o.deleted_at IS NULL
+      AND od.deleted_at IS NULL
+      AND b.deleted_at IS NULL
       ORDER BY o.date DESC
       `,
       { replacements: [userId] }

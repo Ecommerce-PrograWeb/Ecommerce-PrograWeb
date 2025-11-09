@@ -43,7 +43,11 @@ const Book = sequelize.define('Book', {
   }
 }, {
   tableName: 'Book',
-  timestamps: false
+  timestamps: true,
+  paranoid: true,
+  createdAt: false,
+  updatedAt: false,
+  deletedAt: 'deleted_at'
 });
 
 // Relation: A book belongs to an author and category
