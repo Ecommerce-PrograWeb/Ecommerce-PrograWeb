@@ -17,7 +17,11 @@ const Cart = sequelize.define('Cart', {
     }
 }, {
     tableName: 'Cart',
-    timestamps: false
+    timestamps: true,
+    paranoid: true,
+    createdAt: false,
+    updatedAt: false,
+    deletedAt: 'deleted_at'
 });
 
 export default Cart;

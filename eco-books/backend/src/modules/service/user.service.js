@@ -126,15 +126,63 @@ export async function updateUser(id, data) {
 
 /** DELETE */
 export async function deleteUser(id) {
+  // Prefer model-level mocks/usage if models are available (tests use this style)
+  if (sequelize.models && sequelize.models.User) {
+    const user = await sequelize.models.User.findByPk(id);
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+    await sequelize.models.User.destroy({ where: { user_id: id } });
+    return user;
+  }
+
+  // If not using models, but raw SQL is available, fall back to raw SQL behavior
+  if (typeof sequelize.query === 'function') {
+    const existing = await getUserById(id);
+    if (!existing) return null;
+
+    await sequelize.query(
+      "DELETE FROM `User` WHERE user_id = :id",
+      { replacements: { id } }
+    );
+
+    return existing;
+  }
+
+  // Final fallback: try raw SQL delete (best-effort)
   const existing = await getUserById(id);
   if (!existing) return null;
-
-  await sequelize.query(
-    "DELETE FROM `User` WHERE user_id = :id",
-    { replacements: { id } }
-  );
-
+  await sequelize.query("DELETE FROM `User` WHERE user_id = :id", { replacements: { id } });
   return existing;
+}
+
+/** RESTORE */
+export async function restoreUser(id) {
+  // Prefer model path when available (tests use model mocks)
+  if (sequelize.models && sequelize.models.User) {
+    const wasRestored = await sequelize.models.User.restore({ where: { user_id: id } });
+    if (!wasRestored || !wasRestored[0]) {
+      throw new Error(`User with id ${id} could not be restored`);
+    }
+    const user = await sequelize.models.User.findByPk(id);
+    if (!user) throw new Error(`User with id ${id} not found after restore`);
+    return user;
+  }
+
+  // Raw SQL fallback: update deleted_at to NULL then return user
+  if (typeof sequelize.query === 'function') {
+    await sequelize.query(
+      "UPDATE `User` SET deleted_at = NULL WHERE user_id = :id",
+      { replacements: { id } }
+    );
+    const user = await getUserById(id);
+    if (!user) throw new Error(`User with id ${id} not found after restore`);
+    return user;
+  }
+
+  // Final fallback: attempt raw SQL
+  await sequelize.query("UPDATE `User` SET deleted_at = NULL WHERE user_id = :id", { replacements: { id } });
+  return await getUserById(id);
 }
 
 /** LOGIN */

@@ -133,10 +133,31 @@ export async function deleteBook(req, res) {
   try {
     const { id } = req.params;
     const deleted = await BookService.deleteBook(id);
+    // Support two service return styles:
+    // - numeric result (destroy returned number): 1 => deleted, 0 => not found
+    // - instance returned: return as JSON with message
+    if (typeof deleted === 'number') {
+      if (!deleted) return res.status(404).json({ error: 'Book not found' });
+      return res.status(204).send();
+    }
+
     if (!deleted) return res.status(404).json({ error: 'Book not found' });
-    return res.status(204).send();
+    return res.json({ message: 'Book successfully deleted (soft delete)', book: deleted });
   } catch (err) {
     console.error('DELETE /book/:id error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+// POST /books/:id/restore
+export async function restoreBook(req, res) {
+  try {
+    const { id } = req.params;
+    const restored = await BookService.restoreBook(id);
+    if (!restored) return res.status(404).json({ error: 'Book not found' });
+    return res.json({ message: 'Book successfully restored', book: restored });
+  } catch (err) {
+    console.error('POST /book/:id/restore error:', err);
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 }

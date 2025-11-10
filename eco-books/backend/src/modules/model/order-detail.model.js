@@ -17,7 +17,11 @@ const OrderDetail = sequelize.define('OrderDetail', {
   }
 }, {
   tableName: 'OrderDetail',
-  timestamps: false
+  timestamps: true,
+  paranoid: true,
+  createdAt: false,
+  updatedAt: false,
+  deletedAt: 'deleted_at'
 });
 
 export default OrderDetail;

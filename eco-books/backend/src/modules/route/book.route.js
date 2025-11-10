@@ -7,7 +7,8 @@ import {
   createBook,
   patchBook,
   putBook,
-  deleteBook,
+   deleteBook,
+   restoreBook,
 } from '../controller/book.controller.js';
 
 const router = Router();
@@ -20,5 +21,6 @@ router.post('/', createBook);
 router.patch('/:id', patchBook);
 router.put('/:id', putBook);
 router.delete('/:id', deleteBook);
+router.post('/:id/restore', restoreBook);
 
 export default router;

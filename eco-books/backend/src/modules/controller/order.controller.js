@@ -155,6 +155,19 @@ export async function deleteOrder(req, res) {
   }
 }
 
+// POST /orders/:id/restore
+export async function restoreOrder(req, res) {
+  try {
+    const { id } = req.params;
+    const restored = await OrderService.restoreOrder(id);
+    if (!restored) return res.status(404).json({ error: 'Order not found' });
+    return res.json({ message: 'Order successfully restored', order: restored });
+  } catch (err) {
+    console.error('POST /orders/:id/restore error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // GET /orders/history 
 export async function historyForUser(req, res) {
   try {
@@ -231,3 +244,6 @@ export async function checkout(req, res) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+// ensure named export is present for ESM import sites that expect it
+// (restoreOrder is exported above as a named function)
