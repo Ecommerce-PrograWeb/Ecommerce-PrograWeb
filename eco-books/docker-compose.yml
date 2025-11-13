@@ -10,14 +10,14 @@ services:
       - "3307:3306"             # MySQL accesible desde tu host en 3307
     volumes:
       - db_data:/var/lib/mysql
-      - ./backend/migrations/01-user.sql:/docker-entrypoint-initdb.d/01-user.sql
-      - ./backend/migrations/02-book.sql:/docker-entrypoint-initdb.d/02-book.sql
-      - ./backend/migrations/03-cart.sql:/docker-entrypoint-initdb.d/03-cart.sql
-      - ./backend/migrations/04-order.sql:/docker-entrypoint-initdb.d/04-order.sql
-      - ./backend/migrations/05-payment.sql:/docker-entrypoint-initdb.d/05-payment.sql
-      - ./backend/migrations/inserts.sql:/docker-entrypoint-initdb.d/inserts.sql
+    #  - ./backend/migrations/01-user.sql:/docker-entrypoint-initdb.d/01-user.sql
+    #  - ./backend/migrations/02-book.sql:/docker-entrypoint-initdb.d/02-book.sql
+    #  - ./backend/migrations/03-cart.sql:/docker-entrypoint-initdb.d/03-cart.sql
+    #  - ./backend/migrations/04-order.sql:/docker-entrypoint-initdb.d/04-order.sql
+    #  - ./backend/migrations/05-payment.sql:/docker-entrypoint-initdb.d/05-payment.sql
+    #  - ./backend/migrations/inserts.sql:/docker-entrypoint-initdb.d/inserts.sql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pMySQL"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-pMySQL"]
       interval: 5s
       timeout: 3s
       retries: 15
@@ -82,6 +82,7 @@ services:
       DD_LOGS_INJECTION: "true"
       DD_RUNTIME_METRICS_ENABLED: "true"
       DD_PROFILING_ENABLED: "true"
+      SEED_DB: "true"
       
     depends_on:
       db:
@@ -91,7 +92,11 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    command: sh -c "npm start"
+    #command: sh -c "npm start"
+    command: >
+            sh -lc "npx sequelize-cli db:migrate
+            && if [ \"$$SEED_DB\" = \"true\" ]; then npx sequelize-cli db:seed:all; fi
+            && npm start"
     networks:
       - app-network
 

@@ -58,8 +58,9 @@ export default function HistoryPage() {
 
         const data = await res.json();
         setItems(Array.isArray(data.items) ? data.items : []);
-      } catch (e: any) {
-        setError(e?.message || "Error de red");
+      } catch (e: unknown) {
+        const message = e instanceof Error ? e.message : "Error de red";
+        setError(message);
         setItems([]);
       }
     })();
@@ -93,7 +94,13 @@ export default function HistoryPage() {
     return Array.from(byDate.entries())
       .sort((a, b) => (a[0] < b[0] ? 1 : -1))
       .map(([, v]) => v);
-  }, [items]);
+  }, [items])
+
+
+
+
+
+
 
   return (
     <>

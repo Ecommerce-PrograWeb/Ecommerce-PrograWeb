@@ -28,7 +28,7 @@ export default {
         'migrations/**',
         'src/modules/model/**',
         'src/modules/route/**',
-        '**/sequelize-cli-config.js'
+        '**/sequelize-cli-config.*',
       ],
       thresholds: { lines: 95, functions: 95, branches: 95, statements: 95 }
     }

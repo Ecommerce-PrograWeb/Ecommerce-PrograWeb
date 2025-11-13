@@ -20,7 +20,7 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,8 +58,8 @@ function LoginForm() {
 
       console.log('[login] Redirigiendo a:', next);
       router.push(next);
-    } catch (err: any) {
-      const errorMsg = err?.message || "Error al iniciar sesión";
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Error al iniciar sesión";
       console.error('[login] Error al iniciar sesión:', errorMsg, err);
       setError(errorMsg);
     } finally {
@@ -67,64 +67,64 @@ function LoginForm() {
     }
   };
   return (
-    <>
-      <Header />
-      <main className={styles.wrapper}>
-        <div className={styles.overlay} aria-hidden />
-        <section className={styles.card}>
-          <h1 className={styles.title}>Iniciar Sesión</h1>
+    <main className={styles.wrapper}>
+      <div className={styles.overlay} aria-hidden />
+      <section className={styles.card}>
+        <h1 className={styles.title}>Iniciar Sesión</h1>
 
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <label className={styles.label} htmlFor="email">Correo electrónico</label>
-            <input
-              id="email"
-              type="email"
-              className={styles.input}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="tucorreo@ejemplo.com"
-              required
-            />
+        <form className={styles.form} onSubmit={handleSubmit} noValidate>
+          <label className={styles.label} htmlFor="email">Correo electrónico</label>
+          <input
+            id="email"
+            type="email"
+            className={styles.input}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="tucorreo@ejemplo.com"
+            required
+          />
 
-            <label className={styles.label} htmlFor="password">Contraseña</label>
-            <input
-              id="password"
-              type="password"
-              className={styles.input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="********"
-              required
-            />
+          <label className={styles.label} htmlFor="password">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            className={styles.input}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="********"
+            required
+          />
 
-            {error && <p className={styles.error}>{error}</p>}
+          {error && <p className={styles.error}>{error}</p>}
 
-            <div className={styles.actions}>
-              <button type="submit" className={styles.primary}>Ingresar</button>
-              <button
-                type="button"
-                className={styles.ghost}
-                onClick={() => router.push('/singup')}
-              >
-                Crear cuenta
-              </button>
-            </div>
-          </form>
-
-          <div className={styles.meta}>
-            <p>¿Olvidaste tu contraseña? <button className={styles.link}>Recuperar</button></p>
+          <div className={styles.actions}>
+            <button type="submit" className={styles.primary}>Ingresar</button>
+            <button
+              type="button"
+              className={styles.ghost}
+              onClick={() => router.push('/singup')}
+            >
+              Crear cuenta
+            </button>
           </div>
-        </section>
-      </main>
-      <Footer />
-    </>
+        </form>
+
+        <div className={styles.meta}>
+          <p>¿Olvidaste tu contraseña? <button className={styles.link}>Recuperar</button></p>
+        </div>
+      </section>
+    </main>
   );
 }
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div>Cargando...</div>}>
-      <LoginForm />
-    </Suspense>
+    <>
+      <Header />
+      <Suspense fallback={<div>Cargando...</div>}>
+        <LoginForm />
+      </Suspense>
+      <Footer />
+    </>
   );
 }

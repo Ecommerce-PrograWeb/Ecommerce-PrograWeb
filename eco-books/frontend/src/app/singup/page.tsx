@@ -22,7 +22,7 @@ export default function SingUpPage() {
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,8 +67,8 @@ export default function SingUpPage() {
         console.log('[singup] Redirigiendo a /login');
         router.push("/login");
       }, 1500);
-    } catch (err: any) {
-      const errorMsg = err?.message || "Error al crear usuario";
+    } catch (err: unknown) {
+      const errorMsg = err instanceof Error ? err.message : "Error al crear usuario";
       console.error('[singup] Error al registrar usuario:', errorMsg, err);
       setError(errorMsg);
     } finally {

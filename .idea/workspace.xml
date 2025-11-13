@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="CI: update import paths in tests and refine Jest configuration">
-      <change beforePath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.js" beforeDir="false" afterPath="$PROJECT_DIR$/eco-books/frontend/tests/Product/productview.auth.test.js" afterDir="false" />
-    </list>
+    <list default="true" id="b816f7db-72d3-47ff-9a5f-52c578b66d2b" name="Changes" comment="CI: update import paths in tests and refine Jest configuration" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -84,6 +82,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\susan\Desktop\Progra Web\Ecommerce-PrograWeb\eco-books\frontend" />
       <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app\productview" />
       <recent name="C:\Users\susan\WebstormProjects\Ecommerce-PrograWeb\eco-books\frontend\src\app" />
     </key>
@@ -111,7 +110,7 @@
       <workItem from="1757383942297" duration="717000" />
       <workItem from="1757432558724" duration="6079000" />
       <workItem from="1761166088195" duration="2889000" />
-      <workItem from="1762474740359" duration="322000" />
+      <workItem from="1762474740359" duration="1968000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement cart functionality with controller, model, service, and routes">
       <option name="closed" value="true" />
@@ -193,7 +192,39 @@
       <option name="project" value="LOCAL" />
       <updated>1762474796211</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762475081095</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1762475081095</updated>
+    </task>
+    <task id="LOCAL-00012" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762476000208</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1762476000208</updated>
+    </task>
+    <task id="LOCAL-00013" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762587074751</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1762587074751</updated>
+    </task>
+    <task id="LOCAL-00014" summary="CI: update import paths in tests and refine Jest configuration">
+      <option name="closed" value="true" />
+      <created>1762587096415</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1762587096415</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
