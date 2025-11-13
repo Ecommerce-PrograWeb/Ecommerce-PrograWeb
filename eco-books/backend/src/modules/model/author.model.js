@@ -13,7 +13,7 @@ const Author = sequelize.define('Author', {
   }
 }, {
   tableName: 'Author',
-  timestamps: true
+  timestamps: true,
   paranoid: true,
   createdAt: false,
   updatedAt: false,
