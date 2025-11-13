@@ -11,7 +11,7 @@ type CreateUserResponse = {
   user_id: number;
   name: string;
   email: string;
-  role?: string
+  role?: string;
 };
 
 export default function SingUpPage() {
@@ -22,7 +22,7 @@ export default function SingUpPage() {
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [, setLoading] = useState(false);
+  const [, setLoading] = 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
