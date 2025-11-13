@@ -12,7 +12,7 @@ interface Book {
   book_id: number;
   name: string;
   cover: string;
-  description: string;
+  description: string
   publication_date: string;
   purchase_price: number;
   author_id: number;
