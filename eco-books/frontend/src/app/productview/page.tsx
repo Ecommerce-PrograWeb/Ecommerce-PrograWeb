@@ -12,7 +12,7 @@ interface Book {
   book_id: number;
   name: string;
   cover: string;
-  description: string
+  description: string;
   publication_date: string;
   purchase_price: number;
   author_id: number;
@@ -137,7 +137,7 @@ function ProductContent() {
       <section className={styles.card}>
         {/* Image */}
         <div className={styles.media}>
-          <button className={styles.fav} aria-label="Agregar a favoritos">♡</button>
+          
           <div className={styles.imgBox}>
             <Image
               src={book.cover ? `/Images/BookCovers/${book.cover}` : '/Images/default-cover.jpg'}
