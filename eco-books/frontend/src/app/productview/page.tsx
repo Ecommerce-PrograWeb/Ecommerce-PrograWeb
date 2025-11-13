@@ -137,7 +137,7 @@ function ProductContent() {
       <section className={styles.card}>
         {/* Image */}
         <div className={styles.media}>
-          <button className={styles.fav} aria-label="Agregar a favoritos">♡</button>
+          
           <div className={styles.imgBox}>
             <Image
               src={book.cover ? `/Images/BookCovers/${book.cover}` : '/Images/default-cover.jpg'}

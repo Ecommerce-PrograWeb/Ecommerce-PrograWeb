@@ -15,14 +15,14 @@ type CreateUserResponse = {
 };
 
 export default function SingUpPage() {
-  const router = useRouter();
+  const router = useRouter)
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [, setLoading] = useState(false);
+  const [, setLoading] = 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
