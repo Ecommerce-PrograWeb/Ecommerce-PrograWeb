@@ -11,7 +11,7 @@ type CreateUserResponse = {
   user_id: number;
   name: string;
   email: string;
-  role?: string;
+  role?: string
 };
 
 export default function SingUpPage() {
