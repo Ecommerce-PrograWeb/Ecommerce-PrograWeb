@@ -94,7 +94,13 @@ export default function HistoryPage() {
     return Array.from(byDate.entries())
       .sort((a, b) => (a[0] < b[0] ? 1 : -1))
       .map(([, v]) => v);
-  }, [items]);
+  }, [items])
+
+
+
+
+
+
 
   return (
     <>
